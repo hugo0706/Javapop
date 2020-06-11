@@ -19,7 +19,7 @@ public class Producto implements Serializable {
     private boolean venta;    //Booleano que indica si el producto ha sido vendido o no
     private boolean urgente;	//Booleano que indica si es urgente
     public String cp;
-    public ArrayList<String> comprador=new ArrayList<String>();
+    public Cliente comprador=new Cliente();
     private LocalDate fechaUrgente;
     private String dniDueño;
     
@@ -146,11 +146,10 @@ public class Producto implements Serializable {
 	}
 
 
-	public void setComprador(String nombre,String dni) {
-		this.comprador.add(nombre);
-		this.comprador.add(dni);
+	public void setComprador(Cliente cliente) {
+		this.comprador=cliente;
 	}
-	public ArrayList<String> getComprador(){
+	public Cliente getComprador(){
 		return this.comprador;
 	}
    

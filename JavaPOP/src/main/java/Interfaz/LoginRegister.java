@@ -47,6 +47,11 @@ public class LoginRegister extends javax.swing.JFrame {
         Login.setText("Login");
 
         Register.setText("Register");
+        Register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterActionPerformed(evt);
+            }
+        });
 
         Correo.setText("Correo");
         Correo.addActionListener(new java.awt.event.ActionListener() {
@@ -119,6 +124,10 @@ public class LoginRegister extends javax.swing.JFrame {
     private void ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ContraseñaActionPerformed
+
+    private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterActionPerformed
 
     /**
      * @param args the command line arguments

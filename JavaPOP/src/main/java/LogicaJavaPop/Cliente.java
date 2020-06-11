@@ -27,14 +27,6 @@ public class Cliente implements Serializable {
 	public String ciudad;
 	public int credito;
 	private ArrayList<Producto> productosCliente;
-	/**
-	 * Atributos de cliente profesional
-	 */
-	private String descripcion;
-	private int apertura;
-	private int cierre;
-	private String telefono;
-	private String web;
 	
 	/**
 	 * 
@@ -227,7 +219,7 @@ public class Cliente implements Serializable {
 						i=i-1;
 						System.out.println("Ha vendido el producto");
 						Venta v =new Venta(p.getfechaPublicacion(),p.getCategoria(),p.getEstado(),p.getDescripcion(),p.getTitulo(),
-								p.getPrecio(),p.getCp(),LocalDateTime.now(),this.getNombre(),p.getComprador().get(0),this.getDni(),p.getComprador().get(1));
+								p.getPrecio(),p.getCp(),LocalDateTime.now(),this,p.getComprador());
 						System.out.println(v);
 						DatosPrograma.ventas.add(v);
 						for(Producto pCliente:this.productosCliente) {
@@ -441,14 +433,14 @@ public class Cliente implements Serializable {
 							if(producto.getTitulo().equals(nombre))//Si el nombre del producto coincide
 								if(p.getDniDueño().equals(producto.getDniDueño())) {//si los dnis de los dueños coinciden
 									producto.setVenta(true); 
-									producto.setComprador(this.nombre, this.dni);
+									producto.setComprador(this);
 									String dniDueño=producto.getDniDueño();
 									for(Cliente elem:DatosPrograma.clientes) {
 										if(elem.dni.equals(dniDueño)) {
 											for(Producto pDueño:elem.getProductosCliente()) {
 												if(pDueño.getTitulo().equals(nombre)) {
 													pDueño.setVenta(true);
-													pDueño.setComprador(this.nombre, this.dni);
+													pDueño.setComprador(this);
 												}
 											}
 										}
@@ -470,49 +462,53 @@ public class Cliente implements Serializable {
 	 * mostrando los datos de la transaccion.
 	 */
 	
-	public void hacerProfesional() {
+	public Profesional hacerProfesional() {
+                int apertura=0;
+                int cierre=0;
+                String descripcion="";
+                String telefono="";
+                String web="";
 		Scanner entrada=new Scanner(System.in);
 		boolean correcto=false;
 		while(!correcto) {
 			System.out.println("Introduce descripcion: ");
 			try {
-				descripcion=entrada.nextLine();
+				 descripcion=entrada.nextLine();
 			}catch(Exception e) {
 				continue;
 			}
 			System.out.println("Introduce apertura (int 0-24): ");
 			try {
-				apertura=entrada.nextInt();
+				 apertura=entrada.nextInt();
 			}catch(Exception e) {
 				continue;
 			}
 			System.out.println("Introduce cierre (int 0-24): ");
 			try {
-				cierre=entrada.nextInt();
-				telefono=entrada.nextLine();
+				 cierre=entrada.nextInt();
+				 telefono=entrada.nextLine();
 			}catch(Exception e) {
 				continue;
 			}
 			System.out.println("Introduce telefono: ");
 			try {
-				telefono=entrada.nextLine();
+				 telefono=entrada.nextLine();
 			}catch(Exception e) {
 				continue;
 			}
 			System.out.println("Introduce web: ");
 			try {
-				web=entrada.nextLine();
+				 web=entrada.nextLine();
 				correcto=true;
 			}catch(Exception e) {
 				continue;
 			}
 		}
-		this.setApertura(apertura);
-		this.setCierre(cierre);
-		this.setDescripcion(descripcion);
-		this.setTelefono(telefono);
-		this.setWeb(web);
+		Profesional profesional =new Profesional(this.dni,this.nombre,this.correo,this.clave,this.cp,this.ciudad,this.credito, descripcion, apertura, cierre, telefono, web);
+                DatosPrograma.retirarCliente(this);
+                DatosPrograma.añadirCliente(profesional);
 		System.out.println("Ahora es profesional. Transaccion de 30€. Tarjeta:"+this.credito);
+                return profesional;
 	}
 	
 	
@@ -529,8 +525,7 @@ public class Cliente implements Serializable {
 	 * Este constructor permite instanciar objetos de la clase Cliente.
 	 */
 	public Cliente(String dni, String nombre, String correo, String clave, String cp, String ciudad, int credito) {
-
-		this.dni = dni;
+                this.dni = dni;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.clave = clave;
@@ -598,36 +593,7 @@ public class Cliente implements Serializable {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public int getApertura() {
-		return apertura;
-	}
-	public int getCierre() {
-		return cierre;
-	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public String getWeb() {
-		return web;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	public void setApertura(int apertura) {
-		this.apertura = apertura;
-	}
-	public void setCierre(int cierre) {
-		this.cierre = cierre;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	public void setWeb(String web) {
-		this.web = web;
-	}
+	
 	
 	@Override
 	public String toString() {

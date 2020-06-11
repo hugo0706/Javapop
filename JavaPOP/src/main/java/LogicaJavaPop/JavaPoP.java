@@ -372,7 +372,8 @@ public class JavaPoP implements Serializable {
 	                 * Hacer profesional/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	                 */
 	                else if(opcion.equals("3")){
-	                    elem.hacerProfesional();
+	                    elem=elem.hacerProfesional();
+                            
 	                }
 	                /**
 	                 * Comprobacion de notificaciones//////////////////////////////////////////////////////////////////////////////////////////////////////////////

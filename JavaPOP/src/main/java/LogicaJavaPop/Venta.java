@@ -26,13 +26,12 @@ public class Venta implements Serializable {
 	    private double precio;       
 	    public String cp; 
 	    private LocalDateTime fechaVenta;
-	    private String vendedor;
-	    private String comprador;
+	    private Cliente vendedor;
+	    private Cliente comprador;
 	    private	String dniV;
-	    private String dniC;
+	
 		public Venta(LocalDate fechaPublicacion, String categoria, String estado, String descripcion, String titulo,
-				double precio, String cp, LocalDateTime fechaVenta, String vendedor, String comprador, String dniV,
-				String dniC) {
+				double precio, String cp, LocalDateTime fechaVenta,Cliente vendedor,Cliente comprador) {
 			super();
 			this.fechaPublicacion = fechaPublicacion;
 			this.categoria = categoria;
@@ -45,7 +44,7 @@ public class Venta implements Serializable {
 			this.vendedor = vendedor;
 			this.comprador = comprador;
 			this.dniV = dniV;
-			this.dniC = dniC;
+			
 		}
 		public LocalDate getFechaPublicacion() {
 			return fechaPublicacion;
@@ -71,18 +70,16 @@ public class Venta implements Serializable {
 		public LocalDateTime getFechaVenta() {
 			return fechaVenta;
 		}
-		public String getVendedor() {
+		public Cliente getVendedor() {
 			return vendedor;
 		}
-		public String getComprador() {
+		public Cliente getComprador() {
 			return comprador;
 		}
 		public String getDniV() {
 			return dniV;
 		}
-		public String getDniC() {
-			return dniC;
-		}
+		
 		public void setFechaPublicacion(LocalDate fechaPublicacion) {
 			this.fechaPublicacion = fechaPublicacion;
 		}
@@ -107,24 +104,22 @@ public class Venta implements Serializable {
 		public void setFechaVenta(LocalDateTime fechaVenta) {
 			this.fechaVenta = fechaVenta;
 		}
-		public void setVendedor(String vendedor) {
+		public void setVendedor(Cliente vendedor) {
 			this.vendedor = vendedor;
 		}
-		public void setComprador(String comprador) {
+		public void setComprador(Cliente comprador) {
 			this.comprador = comprador;
 		}
 		public void setDniV(String dniV) {
 			this.dniV = dniV;
 		}
-		public void setDniC(String dniC) {
-			this.dniC = dniC;
-		}
+	
 		@Override
 		public String toString() {
 			return "Venta: categoria=" + categoria + "  estado=" + estado
 					+ " descripcion=" + descripcion + "\n titulo=" + titulo + " precio=" + precio + " cp=" + cp
-					+ "\n fechaVenta=" + fechaVenta + "\n vendedor=" + vendedor + ", comprador=" + comprador + ", dniV="
-					+ dniV + ", dniC=" + dniC + "]";
+					+ "\n fechaVenta=" + fechaVenta + "\n vendedor=" + vendedor + ", comprador=" + comprador+
+					   "]";
 		}
 	    
 	    

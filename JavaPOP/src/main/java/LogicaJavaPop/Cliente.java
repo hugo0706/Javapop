@@ -110,7 +110,7 @@ public class Cliente implements Serializable {
 				continue;
 			}
 		}
-		return new Producto(titulo,categoria,estado,descripcion,precio,this.cp,this.dni);
+		return new Producto(titulo,categoria,estado,descripcion,precio,this);
 	}
 	
 	/**
@@ -125,12 +125,12 @@ public class Cliente implements Serializable {
 		 * Si el producto no se encuentra en la lista personal del cliente, se añade.
 		 */
 		if(this.productosCliente==null) {
-			producto.setCp(this.cp);
+		
 			this.productosCliente.add(producto);
 			DatosPrograma.añadirProducto(producto);
 		}else {
 			if(!this.productosCliente.contains(producto)) {
-				producto.setCp(this.cp);
+				
 				this.productosCliente.add(producto);
 				/**
 				 * Añade producto a la lista general de productos
@@ -177,7 +177,7 @@ public class Cliente implements Serializable {
         for(Producto i:productosCliente) {
             if(nombre.equals(i.getTitulo()) && !i.isUrgente()) {
                             for (Producto d: DatosPrograma.productos){
-                                if (d.getTitulo().equals(i.getTitulo()) && d.getDniDueño().equals(i.getDniDueño())){
+                                if (d.getTitulo().equals(i.getTitulo()) && d.getDueño().equals(i.getDueño())){
                                     System.out.print("Buenas tardes, ");
                                     d.setUrgente(true);
                                     d.estableceFechaUrgente();
@@ -220,7 +220,7 @@ public class Cliente implements Serializable {
 						System.out.println("Ha vendido el producto");
 						Venta v =new Venta(p.getfechaPublicacion(),p.getCategoria(),p.getEstado(),p.getDescripcion(),p.getTitulo(),
 								p.getPrecio(),p.getCp(),LocalDateTime.now(),this,p.getComprador());
-						System.out.println(v);
+						
 						DatosPrograma.ventas.add(v);
 						for(Producto pCliente:this.productosCliente) {
 							if(p.getTitulo().equals(pCliente.getTitulo())) {
@@ -229,10 +229,10 @@ public class Cliente implements Serializable {
 								break;
 							}
 						}
-						
+						System.out.println("mecagoenmismuertos");
 						for(Producto pGeneral: DatosPrograma.productos) {
 							if(pGeneral.getTitulo().equals(p.getTitulo())) {
-								if(pGeneral.getDniDueño().equals(this.dni)) {
+								if(pGeneral.getDueño().dni.equals(this.dni)) {
 									DatosPrograma.productos.remove(pGeneral);
 									
 									break;
@@ -404,7 +404,7 @@ public class Cliente implements Serializable {
                 
                 for (Producto purga:DatosPrograma.productos){
                     if (categoria.equals(purga.getCategoria())){
-                        if (!purga.getDniDueño().equals(this.dni)){
+                        if (!purga.getDueño().equals(this)){
                             productosDisponibles.add(purga);
                         }
                     }
@@ -430,13 +430,17 @@ public class Cliente implements Serializable {
 						 * Pone el marcador del producto en vendido para ser aceptado por el vendedor mas tarde
 						 */
 						for(Producto producto:DatosPrograma.productos) {
-							if(producto.getTitulo().equals(nombre))//Si el nombre del producto coincide
-								if(p.getDniDueño().equals(producto.getDniDueño())) {//si los dnis de los dueños coinciden
-									producto.setVenta(true); 
+							if(producto.getTitulo().equals(nombre)){//Si el nombre del producto coincide
+                                                            System.out.println("434");	
+								if(p.getDueño().equals(producto.getDueño())) {//si los dnis de los dueños coinciden
+									System.out.println("436");	
+                                                                        producto.setVenta(true); 
 									producto.setComprador(this);
-									String dniDueño=producto.getDniDueño();
+									Cliente dueño=producto.getDueño();
 									for(Cliente elem:DatosPrograma.clientes) {
-										if(elem.dni.equals(dniDueño)) {
+                                                                            System.out.println("441");	
+										if(elem.dni.equals(dueño.dni)) {
+                                                                                    System.out.println("442");	
 											for(Producto pDueño:elem.getProductosCliente()) {
 												if(pDueño.getTitulo().equals(nombre)) {
 													pDueño.setVenta(true);
@@ -448,21 +452,20 @@ public class Cliente implements Serializable {
 									}
 							
 								}
-					}else {
-						
 					}
 					break;
 				}
 				
-		}else {}
+		}
 	}
+    }
     }
 	/**
 	 * Este metodo permite añadir los atributos de profesional a un cliente
 	 * mostrando los datos de la transaccion.
 	 */
 	
-	public Profesional hacerProfesional() {
+    public Profesional hacerProfesional() {
                 int apertura=0;
                 int cierre=0;
                 String descripcion="";

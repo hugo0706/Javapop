@@ -18,10 +18,12 @@ public class Producto implements Serializable {
     private double precio;       
     private boolean venta;    //Booleano que indica si el producto ha sido vendido o no
     private boolean urgente;	//Booleano que indica si es urgente
-    public String cp;
-    public Cliente comprador=new Cliente();
+    private Cliente dueño;
+    private String cp;
     private LocalDate fechaUrgente;
-    private String dniDueño;
+    public Cliente comprador=new Cliente();
+    
+   
     
     
     /**
@@ -34,8 +36,8 @@ public class Producto implements Serializable {
     }
 	
     
-    public Producto(String titulo, String categoria, String estado, String descripcion, double precio,String cp,String dniDueño) {
-    	this.cp=cp;
+    public Producto(String titulo, String categoria, String estado, String descripcion, double precio,Cliente cliente) {
+    	this.cp=cliente.cp;
     	this.categoria = categoria;
         this.estado = estado;
         this.descripcion = descripcion;
@@ -44,7 +46,7 @@ public class Producto implements Serializable {
         this.venta = false;     //Siempre se inicia como falso
         this.urgente=false;  //Se inicia como falso
         this.fechaPublicacion = LocalDate.now();        //Fecha de publicacion = momento en el que se crea el producto
-        this.dniDueño=dniDueño;
+        this.dueño=cliente;
     }
     
     
@@ -60,13 +62,13 @@ public class Producto implements Serializable {
 
     
 
-    public String getDniDueño() {
-		return dniDueño;
+    public Cliente getDueño() {
+		return dueño;
 	}
 
 
-	public void setDniDueño(String dniDueño) {
-		this.dniDueño = dniDueño;
+	public void setDueño(Cliente dueño) {
+		this.dueño = dueño;
 	}
 
 
@@ -88,7 +90,9 @@ public class Producto implements Serializable {
         this.titulo = titulo;
     }
 
-    
+    public String getCp() {
+        return cp;
+    }
     
     public String getDescripcion() {
         return descripcion;
@@ -135,15 +139,6 @@ public class Producto implements Serializable {
 
 
 
-	public String getCp() {
-		return cp;
-	}
-
-
-
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
 
 
 	public void setComprador(Cliente cliente) {
@@ -159,7 +154,7 @@ public class Producto implements Serializable {
 	public String toString() {
 		return "Producto [fechaPublicacion=" + fechaPublicacion + ", categoria=" + categoria + ", estado=" + estado
 				+ ", descripcion=" + descripcion + ", titulo=" + titulo + ", precio=" + precio + ", venta=" + venta
-				+" Urgente"+urgente+"CP"+cp+  "]";
+				+" Urgente"+urgente+ "comprador= "+comprador+ "]";
 	}
 
     

@@ -206,7 +206,7 @@ public class JavaPoP implements Serializable {
 	 	            			if(c.getNombre().equals(opcion)) {
 	 	            				for(int i=0;i<DatosPrograma.productos.size();i++) {
 	 	            					Producto p=DatosPrograma.productos.get(i);
-	 	            					if(p.getDniDueño().equals(c.dni)) {
+	 	            					if(p.getDueño().equals(c)) {
 	 	            						DatosPrograma.productos.remove(p);
 	 	            						i=i-1;
 	 	            					}
@@ -250,7 +250,7 @@ public class JavaPoP implements Serializable {
  	            		DatosPrograma.productos.remove(numero);
  	
  	            		for(Cliente c: DatosPrograma.clientes) {
- 	            			if(c.dni.equals(p.getDniDueño())) {
+ 	            			if(c.equals(p.getDueño())) {
  	            				for(Producto pCliente: c.getProductosCliente()) {
  	            					if(pCliente.getTitulo().equals(p.getTitulo())) {
  	            		
@@ -327,7 +327,7 @@ public class JavaPoP implements Serializable {
 	                else if(opcion.equals("2")){
 	                    
 	                	ArrayList<Producto> tusProductos = elem.getProductosCliente();
-	                
+                            System.out.println(tusProductos);
 	                    System.out.print("1  para dar de alta un nuevo producto"
 	                            + "\n 2 para dar de baja un producto\n 3 para hacer urgente un producto ");
 	                    String elegir = menu.nextLine();

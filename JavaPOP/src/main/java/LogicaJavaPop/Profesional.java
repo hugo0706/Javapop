@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package LogicaJavaPop;
-
+import java.io.Serializable;
 /**
  *
  * @author hugog
  */
-public class Profesional extends Cliente {
+public class Profesional extends Cliente implements Serializable {
     private String descripcion;
     private int apertura;
     private int cierre;

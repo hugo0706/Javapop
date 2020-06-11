@@ -1,21 +1,40 @@
+
+import LogicaJavaPop.Cliente;
+import LogicaJavaPop.DatosPrograma;
+
+import java.util.ArrayList;
+import static LogicaJavaPop.JavaPoP.*;
+import LogicaJavaPop.Producto;
+import LogicaJavaPop.Venta;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaz;
+
 
 /**
  *
  * @author hugog
  */
 public class LoginRegister extends javax.swing.JFrame {
-
+        public static Cliente cliente;
+        //FASE DE CARGA DE INFORMACION DESDE FICHERO    	
+    	public static ArrayList<Producto> productos=DatosPrograma.productos= cargarProductos();
+    	public static ArrayList<Cliente> clientes=DatosPrograma.clientes = cargarClientes();
+    	public static ArrayList<Venta> ventas=DatosPrograma.ventas = cargarVentas();
+    	//FIN DE FASE DE CARGA DE INFORMACION DESDE FICHERO
+    	//FASE DE ELECCION REGISTRO/INICIO DE SESION
     /**
      * Creates new form LoginRegister
      */
     public LoginRegister() {
+        
+        
         initComponents();
+        setLocationRelativeTo(null);
+       
     }
 
     /**
@@ -27,12 +46,24 @@ public class LoginRegister extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         JAVAPOP = new javax.swing.JLabel();
         Login = new javax.swing.JButton();
         Register = new javax.swing.JButton();
         Correo = new javax.swing.JTextField();
         Contraseña = new javax.swing.JTextField();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +76,11 @@ public class LoginRegister extends javax.swing.JFrame {
         JAVAPOP.setText("JAVAPOP");
 
         Login.setText("Login");
+        Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginActionPerformed(evt);
+            }
+        });
 
         Register.setText("Register");
         Register.addActionListener(new java.awt.event.ActionListener() {
@@ -71,32 +107,35 @@ public class LoginRegister extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JAVAPOP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(Correo)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+            .addComponent(JAVAPOP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
                         .addComponent(Register, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(76, 76, 76)
                         .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Contraseña, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(115, 115, 115))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Contraseña)
+                            .addComponent(Correo, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(JAVAPOP)
-                .addGap(56, 56, 56)
+                .addGap(68, 68, 68)
                 .addComponent(Correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(32, 32, 32)
                 .addComponent(Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Register, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,21 +156,32 @@ public class LoginRegister extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaActionPerformed
+
+    }//GEN-LAST:event_ContraseñaActionPerformed
+
     private void CorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CorreoActionPerformed
 
-    private void ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ContraseñaActionPerformed
-
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
-        // TODO add your handling code here:
+        Registro registro =new Registro();
+        this.dispose();
+        registro.setVisible(true);
     }//GEN-LAST:event_RegisterActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+        String usuario= Correo.getText();
+        String contraseña= Contraseña.getText();
+        if(comparaUsuario(usuario,clientes,contraseña)){
+            this.cliente=checkCliente(usuario,clientes);
+            OpcionesUsuario opciones=new OpcionesUsuario();
+            this.dispose();
+            opciones.setVisible(true);
+        }
+    }//GEN-LAST:event_LoginActionPerformed
+
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -162,6 +212,7 @@ public class LoginRegister extends javax.swing.JFrame {
                 new LoginRegister().setVisible(true);
             }
         });
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -170,6 +221,7 @@ public class LoginRegister extends javax.swing.JFrame {
     private javax.swing.JLabel JAVAPOP;
     private javax.swing.JButton Login;
     private javax.swing.JButton Register;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,5 +10,5 @@ package e;
  * @author hugog
  */
 public class e {
-    
+    int x =2;
 }

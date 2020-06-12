@@ -1,3 +1,5 @@
+package Interfaz;
+
 
 import LogicaJavaPop.Cliente;
 import LogicaJavaPop.Producto;
@@ -8,13 +10,6 @@ import java.util.ArrayList;
 
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /**
  *
  * @author hugog
@@ -22,8 +17,8 @@ import java.util.ArrayList;
 
 
 public class LoginRegister extends javax.swing.JFrame {
-        public static Cliente cliente;
-    
+    public static Cliente cliente;
+       
     /**
      * Creates new form LoginRegister
      */

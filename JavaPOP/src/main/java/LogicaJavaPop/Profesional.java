@@ -16,7 +16,7 @@ public class Profesional extends Cliente implements Serializable {
     private String telefono;
     private String web;
 
-    public Profesional(String dni, String nombre, String correo, String clave, String cp, String ciudad, int credito,
+    public Profesional(String dni, String nombre, String correo, String clave, String cp, String ciudad, String credito,
                         String descripcion, int apertura, int cierre, String telefono, String web) {
         super(dni, nombre, correo, clave, cp, ciudad, credito);
         this.descripcion = descripcion;

@@ -33,7 +33,7 @@ public  class DatosPrograma implements Serializable {
 		String clave="";
 		String cp="";
 		String ciudad="";
-		int credito=0;
+		String credito="";
 		boolean correcto=false;
                 boolean cifrasDNI = false;
 		while(!correcto) {
@@ -108,7 +108,7 @@ public  class DatosPrograma implements Serializable {
 				}
 			System.out.println("Introduzca su tarjeta de credito");
 			try {
-				credito= entrada.nextInt();
+				credito= entrada.nextLine();
 				correcto=true;
 				}catch(Exception e) {
 					System.out.println("Error");
@@ -117,7 +117,10 @@ public  class DatosPrograma implements Serializable {
 		}
 		
 		Cliente cliente=new Cliente(dni,nombre,correo,clave,cp,ciudad,credito);//Crea nuevo cliente con los datos
-		clientes.add(cliente);//Añade a la lista de clientes
+		if(!clientes.contains(cliente)) {
+			clientes.add(cliente);
+		}else {System.out.println("Este cliente se encuentra en su lista.");
+		}
 		System.out.println("Cuenta "+nombre+" creada correctamente.");
 	}		
 	

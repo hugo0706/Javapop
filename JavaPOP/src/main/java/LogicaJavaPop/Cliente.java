@@ -25,7 +25,7 @@ public class Cliente implements Serializable {
 	public String clave;
 	public String cp;
 	public String ciudad;
-	public int credito;
+	public String credito;
 	private ArrayList<Producto> productosCliente;
 	
 	/**
@@ -527,7 +527,7 @@ public class Cliente implements Serializable {
 	/**
 	 * Este constructor permite instanciar objetos de la clase Cliente.
 	 */
-	public Cliente(String dni, String nombre, String correo, String clave, String cp, String ciudad, int credito) {
+	public Cliente(String dni, String nombre, String correo, String clave, String cp, String ciudad, String credito) {
                 this.dni = dni;
 		this.nombre = nombre;
 		this.correo = correo;
@@ -562,7 +562,7 @@ public class Cliente implements Serializable {
 		return cp;
 	}
 
-	public int getCredito() {
+	public String getCredito() {
 		return credito;
 	}
 
@@ -586,7 +586,7 @@ public class Cliente implements Serializable {
 		this.cp = cp;
 	}
 
-	public void setCredito(int credito) {
+	public void setCredito(String credito) {
 		this.credito = credito;
 	}
 	

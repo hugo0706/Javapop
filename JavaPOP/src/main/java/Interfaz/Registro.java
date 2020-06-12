@@ -1,6 +1,8 @@
+package Interfaz;
+
 
 import LogicaJavaPop.Cliente;
-import static LogicaJavaPop.DatosPrograma.*;
+import LogicaJavaPop.DatosPrograma;
 
 
 
@@ -17,17 +19,45 @@ public class Registro extends javax.swing.JFrame {
 	 * Este metodo permite crear un nuevo cliente, añadiendolo al array de clientes
 	 */
 
-	public static void crearCliente() {
-		String nombre=this.Nombre.getText();
-                String clave=this.Clave.getText();
-		
-		Cliente cliente=new Cliente(dni,nombre,correo,clave,cp,ciudad,credito);//Crea nuevo cliente con los datos
-		clientes.add(cliente);//Añade a la lista de clientes
-		System.out.println("Cuenta "+nombre+" creada correctamente.");
-	}
+    public  void crearCliente() {
+	LoginRegister login=new LoginRegister();
+        String dni=Dni.getText();
+        String nombre=Nombre.getText();
+        String clave=Clave.getText();
+	String correo=Correo.getText();
+        String cp=Cp.getText();
+	String ciudad=Ciudad.getText();
+	String credito=Tarjeta.getText();
+        
+        Cliente cliente=new Cliente(dni,nombre,correo,clave,cp,ciudad,credito);//Crea nuevo cliente con los datos
+        if(DatosPrograma.clientes.size()!=0){        
+            for(Cliente c:DatosPrograma.clientes){
+                    if(!c.getDni().equals(cliente.getDni())){
+                        DatosPrograma.clientes.add(cliente);
+                        
+                        this.dispose();
+                        login.setVisible(true);
+                        break;
+                    }
+                    else {System.out.println("Este usuario ya existe, prueba a iniciar sesion.");
+                    break;
+                    }
+                    
+                }
+        
+        System.out.println(DatosPrograma.clientes);
+	}else{
+            DatosPrograma.clientes.add(cliente);
+            
+            this.dispose();
+            login.setVisible(true);
+            
+        }
+    }
     public Registro() {
         initComponents();
         setLocationRelativeTo(null);
+       
 
     }
 
@@ -48,14 +78,14 @@ public class Registro extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Nombre = new javax.swing.JTextField();
-        DniNum = new javax.swing.JTextField();
         Correo = new javax.swing.JTextField();
         Clave = new javax.swing.JTextField();
-        Cp = new javax.swing.JTextField();
         Ciudad = new javax.swing.JTextField();
-        Tarjeta = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        DniLetra = new javax.swing.JTextField();
+        Registrarse = new javax.swing.JButton();
+        Dni = new javax.swing.JFormattedTextField();
+        Tarjeta = new javax.swing.JFormattedTextField();
+        Cp = new javax.swing.JFormattedTextField();
+        Volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,43 +120,44 @@ public class Registro extends javax.swing.JFrame {
 
         Nombre.setBackground(new java.awt.Color(0, 210, 190));
 
-        DniNum.setBackground(new java.awt.Color(0, 210, 190));
-        DniNum.setForeground(new java.awt.Color(0, 160, 140));
-        DniNum.setText("Numero de 8 cifras");
-        DniNum.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DniNumMouseClicked(evt);
-            }
-        });
-
         Correo.setBackground(new java.awt.Color(0, 210, 190));
 
         Clave.setBackground(new java.awt.Color(0, 210, 190));
 
-        Cp.setBackground(new java.awt.Color(0, 210, 190));
-
         Ciudad.setBackground(new java.awt.Color(0, 210, 190));
 
+        Registrarse.setText("Registrarse");
+        Registrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarseActionPerformed(evt);
+            }
+        });
+
+        Dni.setBackground(new java.awt.Color(0, 210, 190));
+        try {
+            Dni.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########?")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         Tarjeta.setBackground(new java.awt.Color(0, 210, 190));
+        try {
+            Tarjeta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#### #### #### ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jButton1.setText("Registrarse");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        Cp.setBackground(new java.awt.Color(0, 210, 190));
+        try {
+            Cp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        DniLetra.setBackground(new java.awt.Color(0, 210, 190));
-        DniLetra.setForeground(new java.awt.Color(0, 160, 140));
-        DniLetra.setText("Letra");
-        DniLetra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DniLetraMouseClicked(evt);
-            }
-        });
-        DniLetra.addActionListener(new java.awt.event.ActionListener() {
+        Volver.setText("Volver");
+        Volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DniLetraActionPerformed(evt);
+                VolverActionPerformed(evt);
             }
         });
 
@@ -140,78 +171,78 @@ public class Registro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(104, 104, 104)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Registrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Volver))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4)))
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel5))
+                                .addGap(26, 26, 26))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
-                                .addGap(17, 17, 17))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel7)))
-                                .addGap(26, 26, 26)))
+                                .addGap(17, 17, 17)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Cp, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Clave, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Correo, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(DniNum, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DniLetra)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Ciudad, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                            .addComponent(Clave, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                            .addComponent(Correo, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                            .addComponent(Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                            .addComponent(Dni)
+                            .addComponent(Tarjeta)
+                            .addComponent(Cp))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(Registro)
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(186, 186, 186))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DniNum, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DniLetra, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Dni, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Correo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Clave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cp, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel5)
+                            .addComponent(Cp, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                .addGap(31, 31, 31))
+                            .addComponent(jLabel6)
+                            .addComponent(Tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(Registrarse, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Volver)))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,21 +264,16 @@ public class Registro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
+        crearCliente();
+       
+    }//GEN-LAST:event_RegistrarseActionPerformed
 
-    private void DniLetraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DniLetraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DniLetraActionPerformed
-
-    private void DniNumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DniNumMouseClicked
-        DniNum.setText("");
-    }//GEN-LAST:event_DniNumMouseClicked
-
-    private void DniLetraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DniLetraMouseClicked
-        DniLetra.setText("");
-    }//GEN-LAST:event_DniLetraMouseClicked
+    private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
+        LoginRegister login=new LoginRegister();
+        this.dispose();
+        login.setVisible(true);
+    }//GEN-LAST:event_VolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,13 +314,13 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField Ciudad;
     private javax.swing.JTextField Clave;
     private javax.swing.JTextField Correo;
-    private javax.swing.JTextField Cp;
-    private javax.swing.JTextField DniLetra;
-    private javax.swing.JTextField DniNum;
+    private javax.swing.JFormattedTextField Cp;
+    private javax.swing.JFormattedTextField Dni;
     private javax.swing.JTextField Nombre;
+    private javax.swing.JButton Registrarse;
     private javax.swing.JLabel Registro;
-    private javax.swing.JTextField Tarjeta;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JFormattedTextField Tarjeta;
+    private javax.swing.JButton Volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

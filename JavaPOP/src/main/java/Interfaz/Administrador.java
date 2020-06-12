@@ -1,3 +1,5 @@
+package Interfaz;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,12 +10,12 @@
  *
  * @author hugog
  */
-public class OpcionesUsuario extends javax.swing.JFrame {
+public class Administrador extends javax.swing.JFrame {
 
     /**
-     * Creates new form OpcionesUsuario
+     * Creates new form Administrador
      */
-    public OpcionesUsuario() {
+    public Administrador() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -28,30 +30,30 @@ public class OpcionesUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        OPCIONES = new javax.swing.JLabel();
+        ADMINISTRADOR = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 170, 149));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
 
-        OPCIONES.setFont(new java.awt.Font("Mistral", 1, 70)); // NOI18N
-        OPCIONES.setForeground(new java.awt.Color(220, 220, 220));
-        OPCIONES.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        OPCIONES.setText("OPCIONES");
+        ADMINISTRADOR.setFont(new java.awt.Font("Mistral", 1, 60)); // NOI18N
+        ADMINISTRADOR.setForeground(new java.awt.Color(220, 220, 220));
+        ADMINISTRADOR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ADMINISTRADOR.setText("ADMINISTRADOR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(OPCIONES, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(ADMINISTRADOR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(OPCIONES)
-                .addContainerGap(385, Short.MAX_VALUE))
+                .addComponent(ADMINISTRADOR)
+                .addContainerGap(395, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -90,26 +92,26 @@ public class OpcionesUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OpcionesUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OpcionesUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OpcionesUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OpcionesUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Administrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OpcionesUsuario().setVisible(true);
+                new Administrador().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel OPCIONES;
+    private javax.swing.JLabel ADMINISTRADOR;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

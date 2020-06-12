@@ -1,6 +1,7 @@
 
 package Interfaz;
 
+import LogicaJavaPop.DatosPrograma;
 import LogicaJavaPop.Producto;
 import java.util.Scanner;
 
@@ -9,22 +10,50 @@ import java.util.Scanner;
  * @author hugog
  */
 public class CrearProducto extends javax.swing.JFrame {
-    /*
-    public  Producto Creacion() {
-		String estadosPosibles[]= {"NUEVO","COMO NUEVO","BUENO","ACEPTABLE","REGULAR"};
-		String categoriasPosibles[]= {"Moda y accesorios","TV, audio y foto","Móviles y telefonía","Informática y electrónica","Consolas y videojuegos","Deporte y ocio"};
-		Scanner entrada=new Scanner(System.in);
-		String titulo="";
-		String categoria="";
-		String estado="";
-		String descripcion="";
-		double precio=0;
-		boolean correcto=false;
-		while(!correcto) {
-			
-		return new Producto(titulo,categoria,estado,descripcion,precio,this);
+    
+    public  Producto creacion() {
+
+                String titulo=Titulo.getText();
+		String categoria=(String)Categoria.getSelectedItem();
+		String estado=(String)Estado.getSelectedItem();
+		String descripcion=Descripcion.getText();
+		System.out.println(Precio.getText());
+                //double precio=Double.parseDouble(Precio.getText());
+                System.out.println("hola");
+		return new Producto(titulo,categoria,estado,descripcion,12.0,LoginRegister.cliente);
+                
 	}
-                */
+    /**
+	 * Este método añade un objeto de clase Producto a un array general con todos
+	 * los productos de la aplicacion, y a un array con los productos de un cliente
+	 * específico.
+	 * 
+	 * @param producto objeto de clase Producto
+	 */
+	public void añadirProducto(Producto producto) {
+		/**
+		 * Si el producto no se encuentra en la lista personal del cliente, se añade.
+		 */
+		if(LoginRegister.cliente.getProductosCliente()==null) {
+		
+			LoginRegister.cliente.getProductosCliente().add(producto);
+			DatosPrograma.añadirProducto(producto);
+		}else {
+			if(!LoginRegister.cliente.getProductosCliente().contains(producto)) {
+				
+				LoginRegister.cliente.getProductosCliente().add(producto);
+				/**
+				 * Añade producto a la lista general de productos
+				 */
+				DatosPrograma.añadirProducto(producto);
+				
+			}else {System.out.println("Este producto ya se encuentra en su lista.");
+		}
+		}
+                System.out.println(producto);
+                System.out.println(DatosPrograma.productos);
+	}
+                
     /**
      * Creates new form CrearProducto
      */
@@ -48,13 +77,13 @@ public class CrearProducto extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        Nombre = new javax.swing.JTextField();
+        Titulo = new javax.swing.JTextField();
         Crear = new javax.swing.JButton();
-        Dni = new javax.swing.JFormattedTextField();
-        Cp = new javax.swing.JFormattedTextField();
         Volver = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        Categoria = new javax.swing.JComboBox<>();
+        Estado = new javax.swing.JComboBox<>();
+        Descripcion = new javax.swing.JTextField();
+        Precio = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,7 +110,7 @@ public class CrearProducto extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Precio");
 
-        Nombre.setBackground(new java.awt.Color(0, 210, 190));
+        Titulo.setBackground(new java.awt.Color(0, 210, 190));
 
         Crear.setText("Crear");
         Crear.setBorder(null);
@@ -92,20 +121,6 @@ public class CrearProducto extends javax.swing.JFrame {
             }
         });
 
-        Dni.setBackground(new java.awt.Color(0, 210, 190));
-        try {
-            Dni.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########?")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        Cp.setBackground(new java.awt.Color(0, 210, 190));
-        try {
-            Cp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         Volver.setText("Volver");
         Volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,14 +128,25 @@ public class CrearProducto extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setBackground(new java.awt.Color(0, 210, 190));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setToolTipText("");
-        jComboBox1.setBorder(null);
+        Categoria.setBackground(new java.awt.Color(0, 210, 190));
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Moda y accesorios", "TV, audio y foto", "Móviles y telefonía", "Informática y electrónica", "Consolas y videojuegos", "Deporte y ocio" }));
+        Categoria.setToolTipText("");
+        Categoria.setBorder(null);
 
-        jComboBox2.setBackground(new java.awt.Color(0, 210, 190));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(null);
+        Estado.setBackground(new java.awt.Color(0, 210, 190));
+        Estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NUEVO", "COMO NUEVO", "BUENO", "ACEPTABLE", "REGULAR" }));
+        Estado.setBorder(null);
+
+        Descripcion.setText("jTextField1");
+        Descripcion.setToolTipText("");
+        Descripcion.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        Precio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00 "))));
+        Precio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrecioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,20 +170,20 @@ public class CrearProducto extends javax.swing.JFrame {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Nombre)
-                                    .addComponent(Dni)
-                                    .addComponent(Cp)))
+                                    .addComponent(Titulo)
+                                    .addComponent(Descripcion)
+                                    .addComponent(Precio)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 74, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(94, 94, 94)))
                 .addContainerGap())
         );
@@ -168,33 +194,38 @@ public class CrearProducto extends javax.swing.JFrame {
                 .addComponent(Registro)
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(Precio, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Dni, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cp, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addComponent(Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Volver))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Volver)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(Descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addComponent(Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
+
+        Categoria.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,8 +247,8 @@ public class CrearProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
+        añadirProducto(creacion());
         
-
     }//GEN-LAST:event_CrearActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
@@ -225,6 +256,10 @@ public class CrearProducto extends javax.swing.JFrame {
         this.dispose();
         opciones.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
+
+    private void PrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PrecioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,14 +297,14 @@ public class CrearProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField Cp;
+    private javax.swing.JComboBox<String> Categoria;
     private javax.swing.JButton Crear;
-    private javax.swing.JFormattedTextField Dni;
-    private javax.swing.JTextField Nombre;
+    private javax.swing.JTextField Descripcion;
+    private javax.swing.JComboBox<String> Estado;
+    private javax.swing.JFormattedTextField Precio;
     private javax.swing.JLabel Registro;
+    private javax.swing.JTextField Titulo;
     private javax.swing.JButton Volver;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -152,13 +152,16 @@ public class Cliente implements Serializable {
 		/**
 		 * Si el producto se encuentra en la lista personal del cliente, se retira.
 		 */
+             
 		if(productosCliente.contains(producto)) {
+                  
 			this.productosCliente.remove(producto);
+                        
 			/**
 			 * Retira producto de la lista general de productos
 			 */
 			DatosPrograma.retirarProducto(producto);
-		}else {
+                        
 		}
 	}
 	
@@ -167,15 +170,13 @@ public class Cliente implements Serializable {
 	 * uno, cambia su estado a urgente, mostrando la transaccion realizada y la 
 	 * tarjeta de credito usada.
 	 */
-	public void hacerUrgente() {
-        Scanner entrada=new Scanner(System.in);
+	public void hacerUrgente(String nombre) {
+        
+        
         for(Producto i:productosCliente) {
-            System.out.println(i.getTitulo());
-        }
-        System.out.println("Indique el nombre del producto Urgente.");
-        String nombre=entrada.nextLine();
-        for(Producto i:productosCliente) {
+            System.out.print("Buenas tardes, ");
             if(nombre.equals(i.getTitulo()) && !i.isUrgente()) {
+                System.out.print("Buenas tardes, ");
                             for (Producto d: DatosPrograma.productos){
                                 if (d.getTitulo().equals(i.getTitulo()) && d.getDueño().equals(i.getDueño())){
                                     System.out.print("Buenas tardes, ");

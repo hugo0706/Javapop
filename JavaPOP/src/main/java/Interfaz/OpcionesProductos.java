@@ -43,6 +43,11 @@ public class OpcionesProductos extends javax.swing.JFrame {
 
         EliminarProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         EliminarProducto.setText("Eliminar un producto");
+        EliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarProductoActionPerformed(evt);
+            }
+        });
 
         SubirProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         SubirProducto.setText("Subir un producto");
@@ -55,6 +60,11 @@ public class OpcionesProductos extends javax.swing.JFrame {
 
         Urgente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Urgente.setText("Hacer producto urgente");
+        Urgente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UrgenteActionPerformed(evt);
+            }
+        });
 
         Volver.setText("Volver");
         Volver.addActionListener(new java.awt.event.ActionListener() {
@@ -70,15 +80,16 @@ public class OpcionesProductos extends javax.swing.JFrame {
             .addComponent(OPCIONES, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Urgente, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SubirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(26, 412, Short.MAX_VALUE)
-                .addComponent(Volver)
-                .addGap(25, 25, 25))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Urgente, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SubirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(115, 115, 115))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Volver)
+                        .addGap(25, 25, 25))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,6 +138,19 @@ public class OpcionesProductos extends javax.swing.JFrame {
         this.dispose();
         nuevoProducto.setVisible(true);
     }//GEN-LAST:event_SubirProductoActionPerformed
+
+    private void EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoActionPerformed
+        EliminarProducto eliminar=new EliminarProducto();
+        this.dispose();
+        eliminar.setVisible(true);
+    }//GEN-LAST:event_EliminarProductoActionPerformed
+
+    private void UrgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UrgenteActionPerformed
+        HacerUrgente urgente=new HacerUrgente();
+        this.dispose();
+        urgente.setVisible(true);
+        
+    }//GEN-LAST:event_UrgenteActionPerformed
 
     /**
      * @param args the command line arguments

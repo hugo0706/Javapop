@@ -143,7 +143,7 @@ public  class DatosPrograma implements Serializable {
 	public static void añadirProducto(Producto producto) {
 		if(!productos.contains(producto)) {
 			productos.add(producto);
-			System.out.println("Se ha añadido");
+			
 		}else {System.out.println("Este producto ya se encuentra en su lista.");
 	}
 	}

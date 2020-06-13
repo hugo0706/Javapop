@@ -16,6 +16,7 @@ public class OpcionesUsuario extends javax.swing.JFrame {
     public OpcionesUsuario() {
         initComponents();
         setLocationRelativeTo(null);
+
     }
 
     /**
@@ -47,6 +48,11 @@ public class OpcionesUsuario extends javax.swing.JFrame {
 
         MisProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         MisProductos.setText("Mis productos");
+        MisProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MisProductosActionPerformed(evt);
+            }
+        });
 
         Busqueda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Busqueda.setText("Búsqueda de productos");
@@ -134,6 +140,12 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_CerrarSesionActionPerformed
+
+    private void MisProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MisProductosActionPerformed
+        OpcionesProductos opciones =new OpcionesProductos();
+        this.dispose();
+        opciones.setVisible(true);
+    }//GEN-LAST:event_MisProductosActionPerformed
 
     /**
      * @param args the command line arguments

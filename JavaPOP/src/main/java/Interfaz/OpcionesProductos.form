@@ -56,17 +56,20 @@
               <Component id="OPCIONES" alignment="1" pref="500" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="Urgente" alignment="1" min="-2" pref="257" max="-2" attributes="0"/>
-                      <Component id="SubirProducto" alignment="1" min="-2" pref="257" max="-2" attributes="0"/>
-                      <Component id="EliminarProducto" alignment="1" min="-2" pref="257" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="Urgente" alignment="1" min="-2" pref="257" max="-2" attributes="0"/>
+                              <Component id="SubirProducto" alignment="1" min="-2" pref="257" max="-2" attributes="0"/>
+                              <Component id="EliminarProducto" alignment="1" min="-2" pref="257" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="Volver" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="26" pref="412" max="32767" attributes="0"/>
-                  <Component id="Volver" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -108,6 +111,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar un producto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarProductoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="SubirProducto">
           <Properties>
@@ -128,6 +134,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Hacer producto urgente"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UrgenteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Volver">
           <Properties>

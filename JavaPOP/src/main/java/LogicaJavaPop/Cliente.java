@@ -34,6 +34,7 @@ public class Cliente implements Serializable {
 	 * 
 	 * @return Retorna un objeto de la clase Producto
 	 */
+        
 	public  Producto crearProducto() {
 		String estadosPosibles[]= {"NUEVO","COMO NUEVO","BUENO","ACEPTABLE","REGULAR"};
 		String categoriasPosibles[]= {"Moda y accesorios","TV, audio y foto","Móviles y telefonía","Informática y electrónica","Consolas y videojuegos","Deporte y ocio"};
@@ -110,7 +111,7 @@ public class Cliente implements Serializable {
 				continue;
 			}
 		}
-		return new Producto(titulo,categoria,estado,descripcion,precio,this);
+		return new Producto(titulo,categoria,estado,descripcion,precio,this,"");
 	}
 	
 	/**
@@ -174,22 +175,24 @@ public class Cliente implements Serializable {
         
         
         for(Producto i:productosCliente) {
-            System.out.print("Buenas tardes, ");
+        
             if(nombre.equals(i.getTitulo()) && !i.isUrgente()) {
-                System.out.print("Buenas tardes, ");
+               
+                i.estableceFechaUrgente();
+                i.setUrgente(true);
                             for (Producto d: DatosPrograma.productos){
-                                if (d.getTitulo().equals(i.getTitulo()) && d.getDueño().equals(i.getDueño())){
-                                    System.out.print("Buenas tardes, ");
+                                if (d.getTitulo().equals(i.getTitulo()) && d.getDueño().getDni().equals(i.getDueño().dni)){
+                                    
                                     d.setUrgente(true);
                                     d.estableceFechaUrgente();
-                                    i.setUrgente(true);
+                                    
                                     System.out.println("ha convertido "+i.getTitulo()+" en urgente con tarjeta "+this.credito);
-                                    i.estableceFechaUrgente();
+                                    
                                 }
 
                             }
-			}else if(i.isUrgente()) {
-				System.out.println("Ya es urgente");
+            }else if(i.isUrgente()) {
+		System.out.println("Ya es urgente");
 			}
 		}
 	}

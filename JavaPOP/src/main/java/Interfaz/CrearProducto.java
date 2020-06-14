@@ -4,6 +4,10 @@ package Interfaz;
 import LogicaJavaPop.Cliente;
 import LogicaJavaPop.DatosPrograma;
 import LogicaJavaPop.Producto;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -11,6 +15,8 @@ import LogicaJavaPop.Producto;
  * @author hugog
  */
 public class CrearProducto extends javax.swing.JFrame {
+    private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo de imagen (*.jpg, *.jpeg, *.png, *.gif)", "jpg", "png", "jpeg", "gif");
+    private String imageAddress;
     
     public  Producto creacion() {
                 
@@ -20,7 +26,7 @@ public class CrearProducto extends javax.swing.JFrame {
 		String descripcion=Descripcion.getText();
                 String precioLetra=Precio1.getText()+"."+Precio2.getText();
                 double precio=Double.parseDouble(precioLetra);
-                Producto producto = new Producto(titulo,categoria,estado,descripcion,12.0,LoginRegister.cliente);
+                Producto producto = new Producto(titulo,categoria,estado,descripcion,12.0,LoginRegister.cliente,imageAddress);
         
                
 		return producto;
@@ -33,7 +39,7 @@ public class CrearProducto extends javax.swing.JFrame {
 	 * 
 	 * @param producto objeto de clase Producto
 	 */
-	public void añadirProducto(Producto producto) {
+    public void añadirProducto(Producto producto) {
 		/**
 		 * Si el producto no se encuentra en la lista personal del cliente, se añade.
 		 */
@@ -63,6 +69,8 @@ public class CrearProducto extends javax.swing.JFrame {
     public CrearProducto() {
         initComponents();
         setLocationRelativeTo(null);
+        imageAddress="";
+        errorImagen.setVisible(false);
     }
 
     /**
@@ -91,6 +99,11 @@ public class CrearProducto extends javax.swing.JFrame {
         Precio2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        CargarImagen = new javax.swing.JButton();
+        Preview = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        errorImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +182,24 @@ public class CrearProducto extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Imagen");
+
+        CargarImagen.setText("...");
+        CargarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarImagenActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Preview");
+
+        errorImagen.setBackground(new java.awt.Color(255, 0, 0));
+        errorImagen.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
+        errorImagen.setForeground(new java.awt.Color(255, 0, 0));
+        errorImagen.setText("Sube una imagen!");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -177,7 +208,9 @@ public class CrearProducto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
+                        .addGap(100, 100, 100)
+                        .addComponent(errorImagen)
+                        .addGap(18, 18, 18)
                         .addComponent(Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Volver))
@@ -186,14 +219,10 @@ public class CrearProducto extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Titulo)
-                                    .addComponent(Descripcion))
-                                .addGap(94, 94, 94))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Precio1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
@@ -202,7 +231,18 @@ public class CrearProducto extends javax.swing.JFrame {
                                 .addComponent(Precio2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(CargarImagen)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Preview, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(Titulo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Descripcion, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(94, 94, 94))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 66, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +271,7 @@ public class CrearProducto extends javax.swing.JFrame {
                     .addComponent(Precio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -250,9 +290,22 @@ public class CrearProducto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 24, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(CargarImagen)
+                                    .addComponent(jLabel8))
+                                .addGap(27, 27, 27))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Preview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(errorImagen))))
                 .addGap(20, 20, 20))
         );
 
@@ -276,10 +329,12 @@ public class CrearProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
-        añadirProducto(creacion());
-        OpcionesProductos opciones=new OpcionesProductos();
-        this.dispose();
-        opciones.setVisible(true);
+        if(!imageAddress.equals("")){
+            añadirProducto(creacion());
+            OpcionesProductos opciones=new OpcionesProductos();
+            this.dispose();
+            opciones.setVisible(true);
+        }else{errorImagen.setVisible(true);}
     }//GEN-LAST:event_CrearActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
@@ -295,6 +350,22 @@ public class CrearProducto extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void CargarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImagenActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        int i = fileChooser.showOpenDialog(this);
+        if (i == JFileChooser.APPROVE_OPTION) {
+            imageAddress = fileChooser.getSelectedFile().getPath();
+
+            ImageIcon icon = new ImageIcon(this.imageAddress);
+            Image resizedImage = icon.getImage().getScaledInstance(Preview.getWidth(), Preview.getHeight(), java.awt.Image.SCALE_DEFAULT);
+            this.Preview.setIcon(new ImageIcon(resizedImage));
+            
+        }
+    }//GEN-LAST:event_CargarImagenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,20 +403,25 @@ public class CrearProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CargarImagen;
     private javax.swing.JComboBox<String> Categoria;
     private javax.swing.JButton Crear;
     private javax.swing.JTextField Descripcion;
     private javax.swing.JComboBox<String> Estado;
     private javax.swing.JTextField Precio1;
     private javax.swing.JTextField Precio2;
+    private javax.swing.JLabel Preview;
     private javax.swing.JLabel Registro;
     private javax.swing.JTextField Titulo;
     private javax.swing.JButton Volver;
+    private javax.swing.JLabel errorImagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

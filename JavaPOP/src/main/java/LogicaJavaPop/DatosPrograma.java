@@ -20,6 +20,7 @@ public  class DatosPrograma implements Serializable {
 	public static ArrayList<Cliente>clientes=new ArrayList<Cliente>();
 	public static ArrayList<Producto>productos=new ArrayList<Producto>();
 	public static ArrayList<Venta>ventas=new ArrayList<Venta>();
+
 	
 	/**
 	 * Este metodo permite crear un nuevo cliente, añadiendolo al array de clientes
@@ -221,6 +222,7 @@ public  class DatosPrograma implements Serializable {
 			
 		}
 	}
+        
 	/**
 	 * Este método permite leer los datos del fichero de clientes y los retorna 
 	 * en forma de arrayList.
@@ -275,4 +277,5 @@ public  class DatosPrograma implements Serializable {
 		}
 		return ventasGuardadas;
 	}
+       
 }

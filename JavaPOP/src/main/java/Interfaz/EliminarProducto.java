@@ -7,17 +7,21 @@
 package Interfaz;
 
 import LogicaJavaPop.Producto;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.ListModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author hugog
  */
 public class EliminarProducto extends javax.swing.JFrame {
-
+    
+    private String imageAddress;
     /** Creates new form EliminarProducto */
     public EliminarProducto() {
         initComponents();
@@ -42,6 +46,7 @@ public class EliminarProducto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fileChooser = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         OPCIONES = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -51,6 +56,7 @@ public class EliminarProducto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Eliminar = new javax.swing.JButton();
         Volver = new javax.swing.JButton();
+        Preview = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +77,8 @@ public class EliminarProducto extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
         jLabel1.setText("Selecciona el producto que quieras eliminar:");
+
+        ProductoSeleccionado.setEditable(false);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
         jLabel2.setText("Seguro que quieres eliminar ");
@@ -105,9 +113,10 @@ public class EliminarProducto extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(ProductoSeleccionado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ProductoSeleccionado)
+                                    .addComponent(Preview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(48, 48, 48))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -132,7 +141,9 @@ public class EliminarProducto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Preview, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(ProductoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(Eliminar)
@@ -162,6 +173,9 @@ public class EliminarProducto extends javax.swing.JFrame {
     private void ProductosClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductosClienteMouseClicked
         String titulo= LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex()).getTitulo();
         ProductoSeleccionado.setText(titulo);
+        ImageIcon icon = new ImageIcon(LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex()).getImagen());
+        Image resizedImage = icon.getImage().getScaledInstance(Preview.getWidth(), Preview.getHeight(), java.awt.Image.SCALE_DEFAULT);
+        this.Preview.setIcon(new ImageIcon(resizedImage));
     }//GEN-LAST:event_ProductosClienteMouseClicked
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
@@ -230,9 +244,11 @@ public class EliminarProducto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Eliminar;
     private javax.swing.JLabel OPCIONES;
+    private javax.swing.JLabel Preview;
     private javax.swing.JTextField ProductoSeleccionado;
     private javax.swing.JList<String> ProductosCliente;
     private javax.swing.JButton Volver;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

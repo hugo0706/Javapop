@@ -21,6 +21,7 @@ public class Producto implements Serializable {
     private Cliente dueño;
     private String cp;
     private LocalDate fechaUrgente;
+    private String imagen;
     public Cliente comprador=new Cliente();
     
    
@@ -36,7 +37,7 @@ public class Producto implements Serializable {
     }
 	
     
-    public Producto(String titulo, String categoria, String estado, String descripcion, double precio,Cliente cliente) {
+    public Producto(String titulo, String categoria, String estado, String descripcion, double precio,Cliente cliente,String imagen) {
     	this.cp=cliente.cp;
     	this.categoria = categoria;
         this.estado = estado;
@@ -47,6 +48,7 @@ public class Producto implements Serializable {
         this.urgente=false;  //Se inicia como falso
         this.fechaPublicacion = LocalDate.now();        //Fecha de publicacion = momento en el que se crea el producto
         this.dueño=cliente;
+        this.imagen=imagen;
     }
     
     
@@ -80,7 +82,9 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
-
+    public String getImagen(){
+        return imagen;
+    }
     
     public String getTitulo() {
         return titulo;

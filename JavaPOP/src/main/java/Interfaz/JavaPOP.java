@@ -53,11 +53,13 @@ public class JavaPOP {
     	}
     
     }
+     
 
     public static void main(String args[]) {
         DatosPrograma.clientes=cargarClientes();
         DatosPrograma.productos=cargarProductos();
         DatosPrograma.ventas=cargarVentas();
+        
         
         
         /* Set the Nimbus look and feel */

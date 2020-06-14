@@ -174,9 +174,9 @@ public class LoginRegister extends javax.swing.JFrame {
         });
 
         Correo.setText("Correo");
-        Correo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CorreoActionPerformed(evt);
+        Correo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CorreoMouseClicked(evt);
             }
         });
 
@@ -185,6 +185,11 @@ public class LoginRegister extends javax.swing.JFrame {
         Error.setText("Correo o contraseña incorrectos");
 
         Contraseña.setText("Contraseña");
+        Contraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ContraseñaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,10 +247,6 @@ public class LoginRegister extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoActionPerformed
-        
-    }//GEN-LAST:event_CorreoActionPerformed
-
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
         Registro registro =new Registro();
         this.dispose();
@@ -253,6 +254,8 @@ public class LoginRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_RegisterActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+        
+        
         String usuario= Correo.getText();
         String contraseña= Contraseña.getText();
         if(comparaUsuario(usuario,DatosPrograma.clientes,contraseña)){
@@ -268,6 +271,13 @@ public class LoginRegister extends javax.swing.JFrame {
             Error.setVisible(true);
         }
     }//GEN-LAST:event_LoginActionPerformed
+
+    private void ContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContraseñaMouseClicked
+        Contraseña.setText("");
+    }//GEN-LAST:event_ContraseñaMouseClicked
+
+    private void CorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CorreoMouseClicked
+        Correo.setText("");    }//GEN-LAST:event_CorreoMouseClicked
 
  
     public static void main(String args[]) {

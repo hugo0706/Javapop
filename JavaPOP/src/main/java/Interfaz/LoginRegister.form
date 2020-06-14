@@ -146,7 +146,7 @@
             <Property name="text" type="java.lang.String" value="Correo"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CorreoActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CorreoMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Error">
@@ -164,6 +164,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Contrase&#xf1;aMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

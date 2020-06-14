@@ -6,32 +6,41 @@
 package Interfaz;
 
 import LogicaJavaPop.Producto;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.ListModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author hugog
  */
 public class HacerUrgente extends javax.swing.JFrame {
-
+    
+  
     /**
      * Creates new form HacerUrgente
      */
     public HacerUrgente() {
         initComponents();
-    setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         mostrarProductos();
+        errorUrgente.setVisible(false);
         
     }
     public void mostrarProductos(){
         DefaultListModel<String> productos =new DefaultListModel();
         ArrayList<Producto> productosCliente=LoginRegister.cliente.getProductosCliente();
         for(Producto p:productosCliente){
-            productos.addElement(p.getTitulo()+" Precio: "+p.getPrecio());
-            
+            if(!p.isUrgente()){
+                productos.addElement(p.getTitulo()+" Precio: "+p.getPrecio());
+            }else{
+                productos.addElement(p.getTitulo()+" Precio: "+p.getPrecio()+" YA ES URGENTE");
+            }
         }
         ProductosCliente.setModel((ListModel<String>)productos);
     }
@@ -48,6 +57,8 @@ public class HacerUrgente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         HacerUrgente = new javax.swing.JButton();
         Volver = new javax.swing.JButton();
+        Preview = new javax.swing.JLabel();
+        errorUrgente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +80,8 @@ public class HacerUrgente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
         jLabel1.setText("Selecciona el producto que quieras hacer urgente:");
 
+        ProductoSeleccionado.setEditable(false);
+
         jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
         jLabel2.setText("(Coste de 5 euros)");
 
@@ -86,57 +99,68 @@ public class HacerUrgente extends javax.swing.JFrame {
             }
         });
 
+        errorUrgente.setFont(new java.awt.Font("Segoe UI Symbol", 0, 11)); // NOI18N
+        errorUrgente.setForeground(new java.awt.Color(255, 0, 0));
+        errorUrgente.setText("Ya es urgente!");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(214, 214, 214))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(OPCIONES, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 214, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(ProductoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(HacerUrgente)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addGap(27, 27, 27))
+                                .addComponent(ProductoSeleccionado, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(Preview, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(HacerUrgente)
-                            .addComponent(jLabel2))
-                        .addGap(63, 63, 63))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Volver)
-                        .addGap(22, 22, 22))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(errorUrgente)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Volver)
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(OPCIONES)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(errorUrgente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(176, 176, 176))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Preview, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
                         .addComponent(ProductoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(HacerUrgente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(53, 53, 53)
-                        .addComponent(Volver)
-                        .addGap(56, 56, 56))))
+                        .addComponent(jLabel2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addComponent(Volver)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,26 +182,32 @@ public class HacerUrgente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProductosClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductosClienteMouseClicked
-        String titulo= LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex()).getTitulo();
+        Producto p=LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex());
+        String titulo= p.getTitulo();
         ProductoSeleccionado.setText(titulo);
+        ImageIcon icon = new ImageIcon(p.getImagen());
+        Image resizedImage = icon.getImage().getScaledInstance(Preview.getWidth(), Preview.getHeight(), java.awt.Image.SCALE_DEFAULT);
+        this.Preview.setIcon(new ImageIcon(resizedImage));
     }//GEN-LAST:event_ProductosClienteMouseClicked
 
     private void HacerUrgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HacerUrgenteActionPerformed
-        try{
+        
             OpcionesProductos opciones=new OpcionesProductos();
-            this.dispose();
-            opciones.setVisible(true);
             String titulo= ProductoSeleccionado.getText();
 
             for(Producto p:LoginRegister.cliente.getProductosCliente()){
                 if(p.getTitulo().equals(titulo)){
-                    System.out.println(LoginRegister.cliente.getProductosCliente());
-                    LoginRegister.cliente.hacerUrgente(p.getTitulo());
-                    System.out.println(LoginRegister.cliente.getProductosCliente());
+                    if(!p.isUrgente()){
+                        this.dispose();
+                        opciones.setVisible(true);
+                       
+                        System.out.println(LoginRegister.cliente.getProductosCliente());
+                        LoginRegister.cliente.hacerUrgente(titulo);
+                        System.out.println(LoginRegister.cliente.getProductosCliente());
+                    }else{errorUrgente.setVisible(true);}
                 }
             }
 
-        }catch(ConcurrentModificationException exception){}
     }//GEN-LAST:event_HacerUrgenteActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
@@ -224,9 +254,11 @@ public class HacerUrgente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HacerUrgente;
     private javax.swing.JLabel OPCIONES;
+    private javax.swing.JLabel Preview;
     private javax.swing.JTextField ProductoSeleccionado;
     private javax.swing.JList<String> ProductosCliente;
     private javax.swing.JButton Volver;
+    private javax.swing.JLabel errorUrgente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

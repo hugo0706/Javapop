@@ -1,7 +1,9 @@
 package Interfaz;
-
+import LogicaJavaPop.Profesional;
 import Interfaz.LoginRegister;
 import LogicaJavaPop.DatosPrograma;
+import LogicaJavaPop.Producto;
+import java.awt.Color;
 
 
 /**
@@ -16,7 +18,10 @@ public class OpcionesUsuario extends javax.swing.JFrame {
     public OpcionesUsuario() {
         initComponents();
         setLocationRelativeTo(null);
-
+        if(LoginRegister.cliente instanceof Profesional){
+            Profesional.setVisible(false);
+        }
+        
     }
 
     /**
@@ -60,6 +65,11 @@ public class OpcionesUsuario extends javax.swing.JFrame {
 
         Notificaciones.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Notificaciones.setText("Notificaciones");
+        Notificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NotificacionesActionPerformed(evt);
+            }
+        });
 
         CerrarSesion.setText("Cerrar sesión");
         CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +82,17 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         Profesional.setFont(new java.awt.Font("Segoe UI Symbol", 0, 13)); // NOI18N
         Profesional.setForeground(new java.awt.Color(255, 20, 0));
         Profesional.setText("¡Hazte profesional!");
+        Profesional.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProfesionalMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ProfesionalMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ProfesionalMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -137,8 +158,7 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         this.dispose();
         LoginRegister.cliente=null;
         login.setVisible(true);
-        
-        
+
     }//GEN-LAST:event_CerrarSesionActionPerformed
 
     private void MisProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MisProductosActionPerformed
@@ -146,6 +166,26 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         this.dispose();
         opciones.setVisible(true);
     }//GEN-LAST:event_MisProductosActionPerformed
+
+    private void ProfesionalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfesionalMouseEntered
+        Profesional.setForeground(Color.blue);
+    }//GEN-LAST:event_ProfesionalMouseEntered
+
+    private void ProfesionalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfesionalMouseExited
+        Profesional.setForeground(Color.red);
+    }//GEN-LAST:event_ProfesionalMouseExited
+
+    private void ProfesionalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfesionalMouseClicked
+        HacerProfesional profesional=new HacerProfesional();
+        this.dispose();
+        profesional.setVisible(true);
+    }//GEN-LAST:event_ProfesionalMouseClicked
+
+    private void NotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesActionPerformed
+        Notificaciones notificaciones=new Notificaciones();
+        this.dispose();
+        notificaciones.setVisible(true);
+    }//GEN-LAST:event_NotificacionesActionPerformed
 
     /**
      * @param args the command line arguments

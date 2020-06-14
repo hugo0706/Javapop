@@ -209,7 +209,7 @@ public class Cliente implements Serializable {
 		Scanner entrada=new Scanner(System.in);
 		System.out.println("------------NUEVAS NOTIFICACIONES------------");
 
-		for(int i=0;i<this.productosCliente.size();i++) {
+		for(int i=0;i<productosCliente.size();i++) {
 			Producto p=this.productosCliente.get(i);
 			if(p.isVenta()) {
 				boolean terminado =false;
@@ -233,7 +233,7 @@ public class Cliente implements Serializable {
 								break;
 							}
 						}
-						System.out.println("mecagoenmismuertos");
+						
 						for(Producto pGeneral: DatosPrograma.productos) {
 							if(pGeneral.getTitulo().equals(p.getTitulo())) {
 								if(pGeneral.getDueño().dni.equals(this.dni)) {
@@ -475,42 +475,8 @@ public class Cliente implements Serializable {
                 String descripcion="";
                 String telefono="";
                 String web="";
-		Scanner entrada=new Scanner(System.in);
-		boolean correcto=false;
-		while(!correcto) {
-			System.out.println("Introduce descripcion: ");
-			try {
-				 descripcion=entrada.nextLine();
-			}catch(Exception e) {
-				continue;
-			}
-			System.out.println("Introduce apertura (int 0-24): ");
-			try {
-				 apertura=entrada.nextInt();
-			}catch(Exception e) {
-				continue;
-			}
-			System.out.println("Introduce cierre (int 0-24): ");
-			try {
-				 cierre=entrada.nextInt();
-				 telefono=entrada.nextLine();
-			}catch(Exception e) {
-				continue;
-			}
-			System.out.println("Introduce telefono: ");
-			try {
-				 telefono=entrada.nextLine();
-			}catch(Exception e) {
-				continue;
-			}
-			System.out.println("Introduce web: ");
-			try {
-				 web=entrada.nextLine();
-				correcto=true;
-			}catch(Exception e) {
-				continue;
-			}
-		}
+		
+		
 		Profesional profesional =new Profesional(this.dni,this.nombre,this.correo,this.clave,this.cp,this.ciudad,this.credito, descripcion, apertura, cierre, telefono, web);
                 DatosPrograma.retirarCliente(this);
                 DatosPrograma.añadirCliente(profesional);

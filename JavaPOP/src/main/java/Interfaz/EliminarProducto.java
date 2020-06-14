@@ -13,7 +13,7 @@ import java.util.ConcurrentModificationException;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.ListModel;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
@@ -193,8 +193,7 @@ public class EliminarProducto extends javax.swing.JFrame {
            
             for(Producto p:LoginRegister.cliente.getProductosCliente()){
                 if(p.getTitulo().equals(titulo)){
-                   
-                    LoginRegister.cliente.retirarProducto(p);
+                   LoginRegister.cliente.retirarProducto(p);
                     
                 }
             }

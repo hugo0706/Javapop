@@ -371,45 +371,13 @@ public class Cliente implements Serializable {
      * @param palabrasClave String con palabras clave sobre producto a buscar,
      * puede ser un string vacio en caso de no usar palabras clave
      */
-    public void comprarProducto(String palabrasClave) {
-		Scanner entrada = new Scanner(System.in);
+    public ArrayList<Producto> comprarProducto(String palabrasClave,String categoria) {
+	
 		ArrayList<Producto> productosDisponibles = new ArrayList<Producto>();
-                String categoria = "";
-                String categoriasPosibles[]= {"Moda y accesorios","TV, audio y foto","Móviles y telefonía","Informática y electrónica","Consolas y videojuegos","Deporte y ocio"};
-                System.out.println("Selecciona categoria por su numero: ");
-                int e=0;
-                for(String i:categoriasPosibles) {
-                    e++;
-                    System.out.println(e+" "+i);
-                }
-                String seleccion=entrada.nextLine();
-                switch(seleccion) {
-                    case "1":
-                        categoria=categoriasPosibles[0];
-                        break;
-                    case "2":
-                        categoria=categoriasPosibles[1];
-                        break;
-                    case "3":
-                        categoria=categoriasPosibles[2];
-                        break;
-                    case "4":
-                        categoria=categoriasPosibles[3];
-                        break;
-                    case "5":
-                        categoria=categoriasPosibles[4];
-                        break;
-                    case "6":
-                        categoria=categoriasPosibles[5];
-                        break;
-                }
-                
-                
-                
-                for (Producto purga:DatosPrograma.productos){
-                    if (categoria.equals(purga.getCategoria())){
-                        if (!purga.getDueño().equals(this)){
-                            productosDisponibles.add(purga);
+                for (Producto p:DatosPrograma.productos){
+                    if (categoria.equals(p.getCategoria())){
+                        if (!p.getDueño().equals(this)){
+                            productosDisponibles.add(p);
                         }
                     }
                     
@@ -420,19 +388,16 @@ public class Cliente implements Serializable {
 		if(productosDisponibles.isEmpty()) {
 			System.out.println("No hay ningun producto disponible.");
 		}else {
-			for(Producto p:productosDisponibles) {
-				System.out.println(p.getTitulo()+ " precio "+p.getPrecio()+" Estado "+p.getEstado());
-			}
-			System.out.println("Escribe el nombre del producto que quieres comprar:  (Escribe 0 para salir) ");
-			String nombre=entrada.nextLine();
-			
+			return productosDisponibles;
+                }
+			/*
 			if(!nombre.equals("0")) {
 				for(Producto p:productosDisponibles) {
 					if(nombre.equals(p.getTitulo())) {
 						System.out.println("Ha solicitado comprar: "+p.getTitulo()+"por valor "+p.getPrecio()+" con tarjeta "+this.getCredito());
 						/**
 						 * Pone el marcador del producto en vendido para ser aceptado por el vendedor mas tarde
-						 */
+						 
 						for(Producto producto:DatosPrograma.productos) {
 							if(producto.getTitulo().equals(nombre)){//Si el nombre del producto coincide
                                                             System.out.println("434");	
@@ -463,7 +428,7 @@ public class Cliente implements Serializable {
 		}
 	}
     }
-    }
+    }*/
 	/**
 	 * Este metodo permite añadir los atributos de profesional a un cliente
 	 * mostrando los datos de la transaccion.

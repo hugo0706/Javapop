@@ -370,13 +370,17 @@ public class CrearProducto extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_CargarImagenActionPerformed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);

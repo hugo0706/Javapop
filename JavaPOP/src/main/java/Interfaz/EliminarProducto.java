@@ -17,8 +17,13 @@ import javax.swing.ListModel;
 
 
 /**
+ * 
+ * Esta Clase permite eliminar uno de los productos del cliente
+ * tanto de su arraylist como del arraylist general de productos.
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
 public class EliminarProducto extends javax.swing.JFrame {
     
@@ -30,6 +35,9 @@ public class EliminarProducto extends javax.swing.JFrame {
         mostrarProductos();
         
     }
+    /**
+     * Muestra en una lista los productos de un cliente
+     */
     public void mostrarProductos(){
         DefaultListModel<String> productos =new DefaultListModel();
         ArrayList<Producto> productosCliente=LoginRegister.cliente.getProductosCliente();
@@ -122,11 +130,12 @@ public class EliminarProducto extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ProductoSeleccionado)
-                                    .addComponent(Preview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addGap(48, 48, 48))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Preview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(ProductoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(39, 39, 39))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(Volver)
@@ -178,7 +187,11 @@ public class EliminarProducto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cuando un elemento de la lista es pulsado, este se resalta y su titulo e imagen
+     * son representados en sus respectivos jLabels para identificarlo.
+     * @param evt 
+     */
     private void ProductosClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductosClienteMouseClicked
         if(LoginRegister.cliente.getProductosCliente().size()!=0){    
             String titulo= LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex()).getTitulo();
@@ -188,13 +201,20 @@ public class EliminarProducto extends javax.swing.JFrame {
             this.Preview.setIcon(new ImageIcon(resizedImage));
         }
     }//GEN-LAST:event_ProductosClienteMouseClicked
-
+    /**
+     * Instancia y muestra un objeto de la clase OpcionesProductos
+     * @param evt 
+     */
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         OpcionesProductos opciones=new OpcionesProductos();
         this.dispose();
         opciones.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
-
+    /**
+     * Cuando es pulsado se elimina de la lista general de productos y de la lista
+     * particular el producto seleccionado
+     * @param evt 
+     */
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         try{   
             OpcionesProductos opciones=new OpcionesProductos();
@@ -211,25 +231,24 @@ public class EliminarProducto extends javax.swing.JFrame {
             
         }catch(ConcurrentModificationException exception){}
     }//GEN-LAST:event_EliminarActionPerformed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosing
 
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

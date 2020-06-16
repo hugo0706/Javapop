@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Interfaz;
 
 import LogicaJavaPop.DatosPrograma;
@@ -16,10 +12,16 @@ import javax.swing.JFileChooser;
 import javax.swing.ListModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+
 /**
+ * 
+ * Esta Clase permite hacer urgente uno de los productos de un cliente
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
+
 public class HacerUrgente extends javax.swing.JFrame {
     
   
@@ -33,6 +35,9 @@ public class HacerUrgente extends javax.swing.JFrame {
         errorUrgente.setVisible(false);
         
     }
+    /**
+     * Muestra los productos de un cliente en una lista
+     */
     public void mostrarProductos(){
         DefaultListModel<String> productos =new DefaultListModel();
         ArrayList<Producto> productosCliente=LoginRegister.cliente.getProductosCliente();
@@ -189,7 +194,11 @@ public class HacerUrgente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cuando se hace click sobre un elemento de la lista, este se reslta y su titulo e imagen son 
+     * representados en sus respectivos JLabels para su identificacion.
+     * @param evt 
+     */
     private void ProductosClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductosClienteMouseClicked
         if(LoginRegister.cliente.getProductosCliente().size()!=0){ 
             Producto p=LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex());
@@ -200,7 +209,11 @@ public class HacerUrgente extends javax.swing.JFrame {
             this.Preview.setIcon(new ImageIcon(resizedImage));
         }
     }//GEN-LAST:event_ProductosClienteMouseClicked
-
+    /**
+     * Cuando es presionado, el booleano de urgente de el producto seleccionado 
+     * pasa a ser true
+     * @param evt 
+     */
     private void HacerUrgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HacerUrgenteActionPerformed
         
             OpcionesProductos opciones=new OpcionesProductos();
@@ -219,28 +232,33 @@ public class HacerUrgente extends javax.swing.JFrame {
             }
 
     }//GEN-LAST:event_HacerUrgenteActionPerformed
-
+    /**
+     * Instancia y muestra un objeto de la clase OpcionesProductos
+     * @param evt 
+     */
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         OpcionesProductos opciones=new OpcionesProductos();
         this.dispose();
         opciones.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

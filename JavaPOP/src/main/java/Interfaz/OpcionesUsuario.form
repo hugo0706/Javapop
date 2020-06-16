@@ -125,6 +125,9 @@
             <Property name="text" type="java.lang.String" value="B&#xfa;squeda de productos"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BusquedaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Notificaciones">
           <Properties>

@@ -372,63 +372,24 @@ public class Cliente implements Serializable {
      * puede ser un string vacio en caso de no usar palabras clave
      */
     public ArrayList<Producto> comprarProducto(String palabrasClave,String categoria) {
-	
-		ArrayList<Producto> productosDisponibles = new ArrayList<Producto>();
-                for (Producto p:DatosPrograma.productos){
-                    if (categoria.equals(p.getCategoria())){
-                        if (!p.getDueño().equals(this)){
-                            productosDisponibles.add(p);
-                        }
-                    }
-                    
-                }        
-                productosDisponibles = buscaOrdena(palabrasClave,productosDisponibles,this.cp);
-                        
-                        
-		if(productosDisponibles.isEmpty()) {
-			System.out.println("No hay ningun producto disponible.");
-		}else {
-			return productosDisponibles;
-                }
-			/*
-			if(!nombre.equals("0")) {
-				for(Producto p:productosDisponibles) {
-					if(nombre.equals(p.getTitulo())) {
-						System.out.println("Ha solicitado comprar: "+p.getTitulo()+"por valor "+p.getPrecio()+" con tarjeta "+this.getCredito());
-						/**
-						 * Pone el marcador del producto en vendido para ser aceptado por el vendedor mas tarde
-						 
-						for(Producto producto:DatosPrograma.productos) {
-							if(producto.getTitulo().equals(nombre)){//Si el nombre del producto coincide
-                                                            System.out.println("434");	
-								if(p.getDueño().equals(producto.getDueño())) {//si los dnis de los dueños coinciden
-									System.out.println("436");	
-                                                                        producto.setVenta(true); 
-									producto.setComprador(this);
-									Cliente dueño=producto.getDueño();
-									for(Cliente elem:DatosPrograma.clientes) {
-                                                                            System.out.println("441");	
-										if(elem.dni.equals(dueño.dni)) {
-                                                                                    System.out.println("442");	
-											for(Producto pDueño:elem.getProductosCliente()) {
-												if(pDueño.getTitulo().equals(nombre)) {
-													pDueño.setVenta(true);
-													pDueño.setComprador(this);
-												}
-											}
-										}
-									}
-									}
-							
-								}
-					}
-					break;
-				}
-				
-		}
-	}
+        ArrayList<Producto> productosDisponibles = new ArrayList<Producto>();
+        for (Producto p:DatosPrograma.productos){
+            if (categoria.equals(p.getCategoria())){
+                if (!p.getDueño().getDni().equals(this.getDni())){
+                    productosDisponibles.add(p);
+            }
+        }
+
+        }
+        productosDisponibles = buscaOrdena(palabrasClave,productosDisponibles,this.cp);
+        if(productosDisponibles.isEmpty()) {
+            System.out.println("No hay ningun producto disponible.");
+            return new ArrayList<Producto>();
+        }else {
+            return productosDisponibles;
+        }
+
     }
-    }*/
 	/**
 	 * Este metodo permite añadir los atributos de profesional a un cliente
 	 * mostrando los datos de la transaccion.

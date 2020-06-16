@@ -318,7 +318,7 @@ public class JavaPoP implements Serializable {
 	                if (opcion.equals("1")){
 	                	System.out.println("Introduce las palabras clave del producto a buscar\n(en caso de no querer, pulsa enter");
 	                    String palabrasClave = menu.nextLine();
-	                    elem.comprarProducto(palabrasClave);
+	                   //s elem.comprarProducto(palabrasClave);
 	            
 	                /**
 	                 * Consulta de productos propios////////////////////////////////////////////////////////////////////////////////////////////////////////

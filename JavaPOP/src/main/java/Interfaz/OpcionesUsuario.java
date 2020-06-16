@@ -62,6 +62,11 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         Busqueda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Busqueda.setText("Búsqueda de productos");
         Busqueda.setToolTipText("");
+        Busqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BusquedaActionPerformed(evt);
+            }
+        });
 
         Notificaciones.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Notificaciones.setText("Notificaciones");
@@ -186,6 +191,12 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         this.dispose();
         notificaciones.setVisible(true);
     }//GEN-LAST:event_NotificacionesActionPerformed
+
+    private void BusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaActionPerformed
+        BusquedaProductos busqueda=new BusquedaProductos();
+        this.dispose();
+        busqueda.setVisible(true);
+    }//GEN-LAST:event_BusquedaActionPerformed
 
     /**
      * @param args the command line arguments

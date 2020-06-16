@@ -11,6 +11,7 @@ import LogicaJavaPop.Venta;
 import java.awt.Image;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.ListModel;
@@ -64,6 +65,14 @@ public class Notificaciones extends javax.swing.JFrame {
         Volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(0, 170, 149));
         jPanel2.setPreferredSize(new java.awt.Dimension(500, 500));
@@ -210,22 +219,27 @@ public class Notificaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_VentaSeleccionadaActionPerformed
 
     private void VenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderActionPerformed
-        String titulo= VentaSeleccionada.getText();
-        for(Producto p:LoginRegister.cliente.getProductosCliente()){
-            if(p.getTitulo().equals(titulo)){
-                
-                LoginRegister.cliente.retirarProducto(p);
-                
-                Venta v =new Venta(p.getfechaPublicacion(),p.getCategoria(),p.getEstado(),p.getDescripcion(),p.getTitulo(),
-                p.getPrecio(),p.getCp(),LocalDateTime.now(),LoginRegister.cliente,p.getComprador());
-                DatosPrograma.ventas.add(v);
-                
-            }
-        }
+        try{  
+            OpcionesUsuario opciones= new OpcionesUsuario();
+            this.dispose();
+            opciones.setVisible(true);
+            String titulo= VentaSeleccionada.getText();
+            for(Producto p:LoginRegister.cliente.getProductosCliente()){
+                if(p.getTitulo().equals(titulo)){
 
-        
-        mostrarVentas();
-        
+                    LoginRegister.cliente.retirarProducto(p);
+
+                    Venta v =new Venta(p.getfechaPublicacion(),p.getCategoria(),p.getEstado(),p.getDescripcion(),p.getTitulo(),
+                    p.getPrecio(),p.getCp(),LocalDateTime.now(),LoginRegister.cliente,p.getComprador());
+                    DatosPrograma.ventas.add(v);
+                    System.out.println(DatosPrograma.ventas);
+                    
+                }
+            }
+
+
+            mostrarVentas();
+        }catch(ConcurrentModificationException e){}
     }//GEN-LAST:event_VenderActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
@@ -233,6 +247,18 @@ public class Notificaciones extends javax.swing.JFrame {
         this.dispose();
         opciones.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

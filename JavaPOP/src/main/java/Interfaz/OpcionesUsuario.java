@@ -42,6 +42,14 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         Profesional = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 170, 149));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
@@ -197,6 +205,18 @@ public class OpcionesUsuario extends javax.swing.JFrame {
         this.dispose();
         busqueda.setVisible(true);
     }//GEN-LAST:event_BusquedaActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

@@ -5,7 +5,9 @@
  */
 package Interfaz;
 
+import LogicaJavaPop.DatosPrograma;
 import LogicaJavaPop.Producto;
+import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -19,25 +21,60 @@ import javax.swing.JLabel;
 public class BusquedaProductos extends javax.swing.JFrame {
     public ArrayList<JLabel> fotos=new ArrayList<JLabel>();
     public ArrayList<JLabel> titulos=new ArrayList<JLabel>();
-    public ArrayList<JLabel> precios=new ArrayList<JLabel>();
-    private ArrayList<Producto> productosSiguientes= new ArrayList<Producto>();
-    public ArrayList<JFrame> ventanas=new ArrayList<JFrame>();
+   
+    public ArrayList<Producto> productosDisponibles=new ArrayList<Producto>();
     
-     public BusquedaProductos(ArrayList<Producto> productosSiguientes) {
-        this.productosSiguientes=productosSiguientes;
-        initComponents();
-        setLocationRelativeTo(null);
-        llenarArraylists();
-        titulosFalse();
-        
-    }
+    public int numeroVentana=0;
+  
+    
+    
+ 
     public BusquedaProductos() {
+        this.numeroVentana=0;
         initComponents();
         setLocationRelativeTo(null);
         llenarArraylists();
         titulosFalse();
+        siguiente.setVisible(false);
+        anterior.setVisible(false);
         
     }
+    
+    public void mostrarProductosDisponibles(ArrayList<Producto> productos){
+        int i=0;    
+        for(JLabel foto:fotos){
+            foto.setVisible(false);
+        }
+        for(JLabel titulo:titulos){
+            titulo.setVisible(false);
+        }
+        if(productos.size()!=0){
+        while(i<10 && i<productos.size()){
+          
+            if(productos.size()!=0){    
+                  
+                    ImageIcon icon=new ImageIcon(productos.get(i).getImagen());
+                    
+                    Image resizedImage= icon.getImage().getScaledInstance(fotos.get(0).getWidth(),fotos.get(0).getHeight(),java.awt.Image.SCALE_DEFAULT);
+                   
+                    this.fotos.get(i).setIcon(new ImageIcon(resizedImage));
+                    this.fotos.get(i).setVisible(true);
+                    this.titulos.get(i).setText(productos.get(i).getTitulo());
+                    this.titulos.get(i).setVisible(true);
+                    i+=1;
+
+                }
+        }
+        }else{
+            for(JLabel foto:fotos){
+                foto.setVisible(false);
+        }
+            for(JLabel titulo:titulos){
+                titulo.setVisible(false);
+        }  
+        }
+        }
+    
     public void titulosFalse(){
         int i=0;
         for(JLabel titulo:titulos){
@@ -57,7 +94,7 @@ public class BusquedaProductos extends javax.swing.JFrame {
         for(int i=0;i<5;i++){
             titulos.add((JLabel)jPanel3.getComponent(i));
         }
-       System.out.println(titulos.size());
+       
        
     }
     @SuppressWarnings("unchecked")
@@ -82,6 +119,8 @@ public class BusquedaProductos extends javax.swing.JFrame {
         label = new javax.swing.JLabel();
         buscar = new javax.swing.JButton();
         Volver = new javax.swing.JButton();
+        siguiente = new javax.swing.JButton();
+        anterior = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -96,6 +135,14 @@ public class BusquedaProductos extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelProductos.setBackground(new java.awt.Color(0, 170, 149));
         panelProductos.setPreferredSize(new java.awt.Dimension(900, 600));
@@ -194,14 +241,32 @@ public class BusquedaProductos extends javax.swing.JFrame {
             }
         });
 
+        siguiente.setText("Siguiente pagina");
+        siguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                siguienteActionPerformed(evt);
+            }
+        });
+
+        anterior.setText("Pagina anterior");
+        anterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anteriorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(anterior)
+                .addGap(18, 18, 18)
                 .addComponent(Volver)
-                .addGap(44, 44, 44))
+                .addGap(18, 18, 18)
+                .addComponent(siguiente)
+                .addGap(41, 41, 41))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(43, 43, 43)
@@ -218,7 +283,10 @@ public class BusquedaProductos extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 82, Short.MAX_VALUE)
-                .addComponent(Volver))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Volver)
+                    .addComponent(siguiente)
+                    .addComponent(anterior)))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -237,14 +305,69 @@ public class BusquedaProductos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(210, 210, 210));
 
         jLabel11.setText("jLabel11");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel11MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel11MouseExited(evt);
+            }
+        });
 
         jLabel12.setText("jLabel11");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel12MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel12MouseExited(evt);
+            }
+        });
 
         jLabel13.setText("jLabel11");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel13MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel13MouseExited(evt);
+            }
+        });
 
         jLabel14.setText("jLabel11");
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel14MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel14MouseExited(evt);
+            }
+        });
 
         jLabel15.setText("jLabel11");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel15MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel15MouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -279,14 +402,69 @@ public class BusquedaProductos extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(210, 210, 210));
 
         jLabel16.setText("jLabel16");
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel16MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel16MouseExited(evt);
+            }
+        });
 
         jLabel17.setText("jLabel16");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel17MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel17MouseExited(evt);
+            }
+        });
 
         jLabel18.setText("jLabel16");
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel18MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel18MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel18MouseExited(evt);
+            }
+        });
 
         jLabel19.setText("jLabel16");
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel19MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel19MouseExited(evt);
+            }
+        });
 
         jLabel20.setText("jLabel16");
+        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel20MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel20MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel20MouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -354,25 +532,15 @@ public class BusquedaProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_tituloBusquedaActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        
         String titulo=tituloBusqueda.getText();
         String categoria=(String)Categoria.getSelectedItem();
-        ArrayList<Producto> productosDisponibles=new ArrayList<Producto>();
+        this.productosDisponibles=LoginRegister.cliente.comprarProducto(titulo,categoria);//retorna arraylist productos disponibles
         
-        productosDisponibles=LoginRegister.cliente.comprarProducto(titulo,categoria);//retorna arraylist productos disponibles
-        int i=0;
-        for(Producto p:productosDisponibles){
-            ImageIcon icon=new ImageIcon(p.getImagen());
-            Image resizedImage= icon.getImage().getScaledInstance(fotos.get(i).getWidth(),fotos.get(i).getHeight(),java.awt.Image.SCALE_DEFAULT);
-            this.fotos.get(i).setIcon(new ImageIcon(resizedImage));
-            this.titulos.get(i).setText(p.getTitulo());
-            this.titulos.get(i).setVisible(true);
-            i+=1;
-            
-        }
+        mostrarProductosDisponibles(productosDisponibles);
         if(productosDisponibles.size()>10){
-            
+            siguiente.setVisible(true);
         }
-        
     }//GEN-LAST:event_buscarActionPerformed
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
@@ -381,9 +549,249 @@ public class BusquedaProductos extends javax.swing.JFrame {
         opciones.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
 
+    private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
+        anterior.setVisible(true);
+        numeroVentana+=1;
+        if(numeroVentana==0){
+            anterior.setVisible(false);
+        }
+        if(!(productosDisponibles.size()-numeroVentana*10<11)){
+            ArrayList<Producto>productosPagina=new ArrayList<Producto>(productosDisponibles.subList(numeroVentana*10, (numeroVentana*10)+10));
+            mostrarProductosDisponibles(productosPagina);
+        }else{
+            ArrayList<Producto>productosPagina=new ArrayList<Producto>(productosDisponibles.subList(numeroVentana*10, productosDisponibles.size()-1));
+            productosPagina.add(productosDisponibles.get(productosDisponibles.size()-1));
+            mostrarProductosDisponibles(productosPagina);
+            siguiente.setVisible(false);
+        }
+    }//GEN-LAST:event_siguienteActionPerformed
+
+    private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
+        siguiente.setVisible(true);
+        numeroVentana-=1;
+       
+        System.out.println("hola");
+        if(!(productosDisponibles.size()-numeroVentana*10<11)){
+            System.out.println("hola");
+            ArrayList<Producto>productosPagina=new ArrayList<Producto>(productosDisponibles.subList(numeroVentana*10, (numeroVentana*10)+10));
+            System.out.println("hola");
+            
+            mostrarProductosDisponibles(productosPagina);
+            System.out.println("hola");
+        }else{
+            System.out.println("hello");
+            ArrayList<Producto>productosPagina=new ArrayList<Producto>(productosDisponibles.subList(numeroVentana*10, productosDisponibles.size()-1));
+            productosPagina.add(productosDisponibles.get(productosDisponibles.size()-1));
+            mostrarProductosDisponibles(productosPagina);
+            anterior.setVisible(false);
+        }
+    }//GEN-LAST:event_anteriorActionPerformed
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        String titulo=jLabel11.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+       String titulo=jLabel12.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        String titulo=jLabel13.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        String titulo=jLabel14.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        String titulo=jLabel15.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        String titulo=jLabel16.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+        String titulo=jLabel17.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel17MouseClicked
+
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        String titulo=jLabel18.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel18MouseClicked
+
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        String titulo=jLabel19.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel19MouseClicked
+
+    private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
+        String titulo=jLabel20.getText();
+        for(Producto p:productosDisponibles){
+            if(p.getTitulo().equals(titulo)){
+                Compra compra=new Compra(p);
+                compra.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jLabel20MouseClicked
+
+    private void jLabel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseEntered
+        jLabel11.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel11MouseEntered
+
+    private void jLabel11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseExited
+        jLabel11.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel11MouseExited
+
+    private void jLabel12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseEntered
+        jLabel12.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel12MouseEntered
+
+    private void jLabel13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseEntered
+        jLabel13.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel13MouseEntered
+
+    private void jLabel15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseEntered
+        jLabel15.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel15MouseEntered
+
+    private void jLabel14MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseEntered
+        jLabel14.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel14MouseEntered
+
+    private void jLabel16MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseEntered
+        jLabel16.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel16MouseEntered
+
+    private void jLabel17MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseEntered
+        jLabel17.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel17MouseEntered
+
+    private void jLabel18MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseEntered
+       jLabel18.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel18MouseEntered
+
+    private void jLabel19MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseEntered
+    jLabel19.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel19MouseEntered
+
+    private void jLabel20MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseEntered
+        jLabel20.setForeground(Color.blue);
+    }//GEN-LAST:event_jLabel20MouseEntered
+
+    private void jLabel12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseExited
+         jLabel12.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel12MouseExited
+
+    private void jLabel13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseExited
+         jLabel13.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel13MouseExited
+
+    private void jLabel15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseExited
+        jLabel15.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel15MouseExited
+
+    private void jLabel14MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseExited
+    jLabel14.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel14MouseExited
+
+    private void jLabel16MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseExited
+         jLabel16.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel16MouseExited
+
+    private void jLabel17MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseExited
+        jLabel17.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel17MouseExited
+
+    private void jLabel18MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseExited
+         jLabel18.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel18MouseExited
+
+    private void jLabel19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseExited
+        jLabel19.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel19MouseExited
+
+    private void jLabel20MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseExited
+         jLabel20.setForeground(Color.black);
+    }//GEN-LAST:event_jLabel20MouseExited
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosing
+      
  
     public static void main(String args[]) {
-     
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -423,6 +831,7 @@ public class BusquedaProductos extends javax.swing.JFrame {
     private javax.swing.JLabel L3;
     private javax.swing.JLabel L4;
     private javax.swing.JButton Volver;
+    private javax.swing.JButton anterior;
     private javax.swing.JButton buscar;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -440,6 +849,7 @@ public class BusquedaProductos extends javax.swing.JFrame {
     private javax.swing.JLabel label;
     private javax.swing.JPanel panelProductos;
     private javax.swing.JPanel panelProductos2;
+    private javax.swing.JButton siguiente;
     private javax.swing.JTextField tituloBusqueda;
     // End of variables declaration//GEN-END:variables
 }

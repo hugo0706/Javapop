@@ -28,91 +28,8 @@ public class Cliente implements Serializable {
 	public String credito;
 	private ArrayList<Producto> productosCliente;
 	
-	/**
-	 * 
-	 * Este método crea una instancia de la clase Producto
-	 * 
-	 * @return Retorna un objeto de la clase Producto
-	 */
+	
         
-	public  Producto crearProducto() {
-		String estadosPosibles[]= {"NUEVO","COMO NUEVO","BUENO","ACEPTABLE","REGULAR"};
-		String categoriasPosibles[]= {"Moda y accesorios","TV, audio y foto","Móviles y telefonía","Informática y electrónica","Consolas y videojuegos","Deporte y ocio"};
-		Scanner entrada=new Scanner(System.in);
-		String titulo="";
-		String categoria="";
-		String estado="";
-		String descripcion="";
-		double precio=0;
-		boolean correcto=false;
-		while(!correcto) {
-			System.out.println("Introduce titulo");
-			try {
-				titulo=entrada.nextLine();
-			}catch(Exception e) {
-				continue;
-			}
-			System.out.println("Selecciona categoria por su numero: ");
-			try {
-				int e=0;
-				for(String i:categoriasPosibles) {
-					e++;
-					System.out.println(e+" "+i);
-				}
-				String seleccion=entrada.nextLine();
-				switch(seleccion) {
-					case "1":
-						categoria=categoriasPosibles[0];
-						break;
-					case "2":
-						categoria=categoriasPosibles[1];
-						break;
-					case "3":
-						categoria=categoriasPosibles[2];
-						break;
-					case "4":
-						categoria=categoriasPosibles[3];
-						break;
-					case "5":
-						categoria=categoriasPosibles[4];
-						break;
-					case "6":
-						categoria=categoriasPosibles[5];
-						break;
-				}
-			}catch(Exception e) {
-				continue;
-			}
-			boolean estadoAceptado=false;
-			while(!estadoAceptado) {
-			System.out.println("Introduce estado(Nuevo/Como nuevo/Bueno/Aceptable/Regular");
-			try {
-				estado=entrada.nextLine();
-				for(String e:estadosPosibles) {
-					if(estado.toUpperCase().equals(e)) {
-						estadoAceptado=true;
-					}
-				}
-			}catch(Exception e) {
-				continue;
-			}
-			}
-			System.out.println("Introduce descripcion");
-			try {
-				descripcion=entrada.nextLine();
-			}catch(Exception e) {
-				continue;
-			}
-			System.out.println("Introduce precio (double)");
-			try {
-				precio=entrada.nextDouble();
-				correcto=true;
-			}catch(Exception e) {
-				continue;
-			}
-		}
-		return new Producto(titulo,categoria,estado,descripcion,precio,this,"");
-	}
 	
 	/**
 	 * Este método añade un objeto de clase Producto a un array general con todos
@@ -153,9 +70,8 @@ public class Cliente implements Serializable {
 		/**
 		 * Si el producto se encuentra en la lista personal del cliente, se retira.
 		 */
-             
-		if(productosCliente.contains(producto)) {
-                  
+		for(Producto p:this.productosCliente){
+                  if(p.getTitulo().equals(producto.getTitulo())){
 			this.productosCliente.remove(producto);
                         
 			/**
@@ -165,7 +81,7 @@ public class Cliente implements Serializable {
                         
 		}
 	}
-	
+        }
 	/**
 	 * Este metodo muestra todos los productos de un cliente y, una vez seleccionado
 	 * uno, cambia su estado a urgente, mostrando la transaccion realizada y la 
@@ -383,7 +299,7 @@ public class Cliente implements Serializable {
         }
         productosDisponibles = buscaOrdena(palabrasClave,productosDisponibles,this.cp);
         if(productosDisponibles.isEmpty()) {
-            System.out.println("No hay ningun producto disponible.");
+            
             return new ArrayList<Producto>();
         }else {
             return productosDisponibles;
@@ -395,27 +311,14 @@ public class Cliente implements Serializable {
 	 * mostrando los datos de la transaccion.
 	 */
 	
-    public Profesional hacerProfesional() {
-                int apertura=0;
-                int cierre=0;
-                String descripcion="";
-                String telefono="";
-                String web="";
-		
-		
-		Profesional profesional =new Profesional(this.dni,this.nombre,this.correo,this.clave,this.cp,this.ciudad,this.credito, descripcion, apertura, cierre, telefono, web);
+	public Profesional hacerProfesional(String apertura, String cierre, String descripcion, String telefono, String web) {
+                   
+                Profesional profesional =new Profesional(this.dni,this.nombre,this.correo,this.clave,this.cp,this.ciudad,this.credito, descripcion, apertura, cierre, telefono, web);
                 DatosPrograma.retirarCliente(this);
                 DatosPrograma.añadirCliente(profesional);
-		System.out.println("Ahora es profesional. Transaccion de 30€. Tarjeta:"+this.credito);
+                System.out.println("Ahora es profesional. Transaccion de 30€. Tarjeta:"+this.credito);
                 return profesional;
-	}
-	
-	
-	
-	
-	
-	
-	
+    }
 	
 	public Cliente() {
 		super();

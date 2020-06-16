@@ -5,6 +5,7 @@
  */
 package Interfaz;
 
+import LogicaJavaPop.DatosPrograma;
 import LogicaJavaPop.Producto;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -61,6 +62,14 @@ public class HacerUrgente extends javax.swing.JFrame {
         errorUrgente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 170, 149));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
@@ -182,12 +191,14 @@ public class HacerUrgente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProductosClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductosClienteMouseClicked
-        Producto p=LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex());
-        String titulo= p.getTitulo();
-        ProductoSeleccionado.setText(titulo);
-        ImageIcon icon = new ImageIcon(p.getImagen());
-        Image resizedImage = icon.getImage().getScaledInstance(Preview.getWidth(), Preview.getHeight(), java.awt.Image.SCALE_DEFAULT);
-        this.Preview.setIcon(new ImageIcon(resizedImage));
+        if(LoginRegister.cliente.getProductosCliente().size()!=0){ 
+            Producto p=LoginRegister.cliente.getProductosCliente().get(ProductosCliente.getSelectedIndex());
+            String titulo= p.getTitulo();
+            ProductoSeleccionado.setText(titulo);
+            ImageIcon icon = new ImageIcon(p.getImagen());
+            Image resizedImage = icon.getImage().getScaledInstance(Preview.getWidth(), Preview.getHeight(), java.awt.Image.SCALE_DEFAULT);
+            this.Preview.setIcon(new ImageIcon(resizedImage));
+        }
     }//GEN-LAST:event_ProductosClienteMouseClicked
 
     private void HacerUrgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HacerUrgenteActionPerformed
@@ -215,6 +226,18 @@ public class HacerUrgente extends javax.swing.JFrame {
         this.dispose();
         opciones.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

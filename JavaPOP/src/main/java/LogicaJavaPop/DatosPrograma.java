@@ -7,6 +7,7 @@ package LogicaJavaPop;
 
 import java.io.*;
 import java.util.*;
+import javax.swing.JFrame;
 /**
  * Esta clase pretende albergar los metodos que tienen relacion con la
  * transferencia y lectura de datos, arrays generales del programa y creacion
@@ -20,110 +21,8 @@ public  class DatosPrograma implements Serializable {
 	public static ArrayList<Cliente>clientes=new ArrayList<Cliente>();
 	public static ArrayList<Producto>productos=new ArrayList<Producto>();
 	public static ArrayList<Venta>ventas=new ArrayList<Venta>();
-
-	
-	/**
-	 * Este metodo permite crear un nuevo cliente, añadiendolo al array de clientes
-	 */
-
-	public static void crearCliente() {
-		Scanner entrada=new Scanner(System.in);
-		String dni="";
-		String nombre="";
-		String correo="";
-		String clave="";
-		String cp="";
-		String ciudad="";
-		String credito="";
-		boolean correcto=false;
-                boolean cifrasDNI = false;
-		while(!correcto) {
-			System.out.println("Introduzca su DNI");
-                        while (!cifrasDNI){ //Sistema de seguridad para que no se meta un dni incorrecto
-			try {   
-                                System.out.println("Introduzca la parte numerica (8 números)");
-				dni=Integer.toString(entrada.nextInt());
-                                int conversion = Integer.parseInt(dni);
-                                if (dni.length() == 8){
-                                    System.out.println("Introduce letra");
-                                	String letraDNI = entrada.nextLine();
-                                    dni += letraDNI;
-                                    cifrasDNI = true;
-                                    
-                                }
-				nombre=entrada.nextLine();//se hace para quemar una linea, si no daria error porque nextInt dejaria una linea de retraso
-			}catch(Exception e) {
-				System.out.println("Error");
-				nombre=entrada.nextLine();
-				continue;
-			}
-                        }
-			System.out.println("Introduzca su nombre");
-			try {
-				
-				nombre=entrada.nextLine();
-				
-			}catch(Exception e) {
-				
-				System.out.println("Error");
-				continue;
-			}
-			System.out.println("Introduzca su correo");
-			try {
-				correo=entrada.nextLine();
-				}catch(Exception e) {
-					System.out.println("Error");
-					continue;
-				}
-	
-			System.out.println("Introduzca su clave");
-			try {
-				clave=entrada.nextLine();
-				}catch(Exception e) {
-					System.out.println("Error");
-					continue;
-				}
+        
 			
-			try {
-			    correcto=false;
-				while(!correcto) {
-					System.out.println("Introduzca su codigo postal");
-					cp=entrada.nextLine();
-					if(cp.length()<3) {
-						System.out.println("Introduce al menos 3 numeros");
-					}else {
-						correcto=true;
-					}
-				}
-				}
-				catch(Exception e) {
-					System.out.println("Error");
-					continue;
-				}
-			System.out.println("Introduzca su ciudad");
-			try {
-				ciudad=entrada.nextLine();
-				}catch(Exception e) {
-					System.out.println("Error");
-					continue;
-				}
-			System.out.println("Introduzca su tarjeta de credito");
-			try {
-				credito= entrada.nextLine();
-				correcto=true;
-				}catch(Exception e) {
-					System.out.println("Error");
-					continue;
-				}
-		}
-		
-		Cliente cliente=new Cliente(dni,nombre,correo,clave,cp,ciudad,credito);//Crea nuevo cliente con los datos
-		if(!clientes.contains(cliente)) {
-			clientes.add(cliente);
-		}else {System.out.println("Este cliente se encuentra en su lista.");
-		}
-		System.out.println("Cuenta "+nombre+" creada correctamente.");
-	}		
 	
 	
 	/**
@@ -131,10 +30,14 @@ public  class DatosPrograma implements Serializable {
 	 * @param producto objeto de clase Producto
 	 */
 	public static void retirarProducto(Producto producto) { 
-		if(productos.contains(producto)) {
-			productos.remove(producto);
-		}else {System.out.println("Este producto no se encuentra en su lista.");
-		}
+		for(Producto p:productos){
+                    if(p.getTitulo().equals(producto.getTitulo()) && p.getDueño().getDni().equals(producto.getDueño().getDni())){
+                        productos.remove(p);
+                        System.out.println("retirar p");
+                        break;
+                    }
+                }
+                    
 	}
 	
 	/**
@@ -277,5 +180,32 @@ public  class DatosPrograma implements Serializable {
 		}
 		return ventasGuardadas;
 	}
+        public static void eliminarProductoAdmin(Producto opcion){
+         for(Cliente c: DatosPrograma.clientes) {
+             if(c.getDni().equals(opcion.getDueño().getDni())) {
+                 
+                 for(Producto pCliente: c.getProductosCliente()) {
+                     
+                     if(pCliente.getTitulo().equals(opcion.getTitulo())) {
+                         
+                            retirarProducto(opcion);
+                            c.retirarProducto(pCliente);
+                            
+                            break;
+                        }
+                 }
+             }
+         }
+        }
+        public static void eliminarClientesAdmin(Cliente c){
+            for(int i=0;i< productos.size();i++) {
+                Producto p= productos.get(i);
+                 if(p.getDueño().equals(c)) {
+                     productos.remove(p);
+                         i=i-1;
+                 }
+            }
+            DatosPrograma.retirarCliente(c);
+        }
        
 }

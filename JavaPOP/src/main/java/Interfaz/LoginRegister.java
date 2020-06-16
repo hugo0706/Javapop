@@ -7,6 +7,7 @@ import LogicaJavaPop.Venta;
 import LogicaJavaPop.DatosPrograma;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 
@@ -34,7 +35,7 @@ public class LoginRegister extends javax.swing.JFrame {
      * @return true/false
      */
     
-    public static boolean comparaUsuario(String correo, ArrayList<Cliente> lista, String contraseña){
+    public boolean comparaUsuario(String correo, ArrayList<Cliente> lista, String contraseña){
         boolean dentro = false;
          for (Cliente k: lista){
             String correoComparado = k.getCorreo();
@@ -48,8 +49,9 @@ public class LoginRegister extends javax.swing.JFrame {
                 break;
             }
         }
-        if (dentro == false){
-            System.out.println("Correo o contraseña incorrecta");
+        if (dentro == false && !correo.equals("admin@javapop.com")){
+            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrecta");
+
         }
         return dentro;
     }        
@@ -75,44 +77,7 @@ public class LoginRegister extends javax.swing.JFrame {
         return elem;
         
     }
-    /**
- * Este metodo Intenta cargar el array de clientes desde fichero, en caso de no existir crea uno vacio y lo retorna.
- * 
- */
-    public static ArrayList<Cliente> cargarClientes(){ 
-    	try {
-    		return DatosPrograma.leerFicheroC(); 
-    	}catch(Exception e) {
-    		System.out.println("Error al cargar clientes");
-    		return new ArrayList<Cliente>();
-    		
-    	}
-    
-    }
-    /**
-     * Este metodo Intenta cargar el array de productos desde fichero, en caso de no existir crea uno vacio y lo retorna.
-     * 
-     */
-    public static ArrayList<Producto> cargarProductos(){ 
-    	try {
-    		return DatosPrograma.leerFicheroP(); 
-    	}catch(Exception e) {
-    		return new ArrayList<Producto>();
-    	}
-    
-    }
-    /**
-     * Este metodo Intenta cargar el array de ventas	 desde fichero, en caso de no existir crea uno vacio y lo retorna.
-     * 
-     */
-    public static ArrayList<Venta> cargarVentas(){ 
-    	try {
-    		return DatosPrograma.leerFicheroV(); 
-    	}catch(Exception e) {
-    		return new ArrayList<Venta>();
-    	}
-    
-    }
+   
 
     public LoginRegister() {
         initComponents();
@@ -121,10 +86,6 @@ public class LoginRegister extends javax.swing.JFrame {
     }
 
 
-    
-    
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,6 +111,14 @@ public class LoginRegister extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 170, 149));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
@@ -254,8 +223,7 @@ public class LoginRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_RegisterActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        
-        
+       try{ 
         String usuario= Correo.getText();
         String contraseña= Contraseña.getText();
         if(comparaUsuario(usuario,DatosPrograma.clientes,contraseña)){
@@ -270,6 +238,8 @@ public class LoginRegister extends javax.swing.JFrame {
         }else{
             Error.setVisible(true);
         }
+       }catch(NullPointerException e){}
+        
     }//GEN-LAST:event_LoginActionPerformed
 
     private void ContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContraseñaMouseClicked
@@ -279,39 +249,20 @@ public class LoginRegister extends javax.swing.JFrame {
     private void CorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CorreoMouseClicked
         Correo.setText("");    }//GEN-LAST:event_CorreoMouseClicked
 
- 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginRegister().setVisible(true);
-            }
-        });
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
+        DatosPrograma.actualizarProductos(DatosPrograma.productos);
+        DatosPrograma.actualizarVentas(DatosPrograma.ventas);
+    }//GEN-LAST:event_formWindowClosing
     
-    }
+ 
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Contraseña;

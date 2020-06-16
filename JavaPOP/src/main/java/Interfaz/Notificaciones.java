@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Interfaz;
 
 import LogicaJavaPop.DatosPrograma;
@@ -16,10 +12,17 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.ListModel;
 
+
 /**
+ * 
+ * Esta Clase muestra en una lista las notificaciones de solicitudes de venta
+ * y permite vender los productos.
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
+
 public class Notificaciones extends javax.swing.JFrame {
     public boolean notificaciones;
  
@@ -28,7 +31,9 @@ public class Notificaciones extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         mostrarVentas();
     }
-
+    /**
+     * Muestra las notificaciones en caso de haber en la lista
+    */
     public void mostrarVentas(){
         DefaultListModel<String> ventas =new DefaultListModel();
         ArrayList<Producto> productosCliente=LoginRegister.cliente.getProductosCliente();
@@ -197,7 +202,11 @@ public class Notificaciones extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cuando se hace click sobre un elemento de la lista, este se resalta y su título e imagen son mostrados
+     * en los jlabels para su identificación
+     * @param evt 
+     */
     private void ListaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaVentasMouseClicked
         if(notificaciones){
         Producto productoSeleccionado=LoginRegister.cliente.getProductosCliente().get(ListaVentas.getSelectedIndex());
@@ -208,7 +217,10 @@ public class Notificaciones extends javax.swing.JFrame {
         this.Preview.setIcon(new ImageIcon(resizedImage));
         }
     }//GEN-LAST:event_ListaVentasMouseClicked
-
+    /**
+     * Cuando es pulsado el botón de vender, se registra la venta del producto seleccionado y la notificación y producto desaparecen
+     * @param evt 
+     */
     private void VenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderActionPerformed
         try{  
             OpcionesUsuario opciones= new OpcionesUsuario();
@@ -229,28 +241,33 @@ public class Notificaciones extends javax.swing.JFrame {
             
         }catch(ConcurrentModificationException e){}
     }//GEN-LAST:event_VenderActionPerformed
-
+    /**
+     * Instancia y muestra un objeto de la clase OpcioneUsuario
+     * @param evt 
+     */
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         OpcionesUsuario opciones=new OpcionesUsuario();
         this.dispose();
         opciones.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

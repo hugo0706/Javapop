@@ -8,18 +8,27 @@ import javax.swing.JOptionPane;
 
 
 /**
+ * 
+ * Esta Clase permite registrar un nuevo usuario en la aplicación
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
 public class Registro extends javax.swing.JFrame {
+    /*
+    Creates an instance of Registro
+    */
+    public Registro() {
+        initComponents();
+        setLocationRelativeTo(null);
+        
 
+    }
+    
     /**
-     * FUNCIONES DE CLASE REGISTRO
+    * Este método permite crear un nuevo cliente, añadiendolo al array de clientes
      */
-    /**
-	 * Este metodo permite crear un nuevo cliente, añadiendolo al array de clientes
-	 */
-
     public  void crearCliente() {
 	LoginRegister login=new LoginRegister();
         String dni=Dni.getText();
@@ -55,15 +64,8 @@ public class Registro extends javax.swing.JFrame {
             
         }
     }
-    public Registro() {
-        initComponents();
-        setLocationRelativeTo(null);
-        
 
-    }
 
-  
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -272,7 +274,11 @@ public class Registro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cuando el boton es presionado crea un nuevo cliente con los datos de las casillas 
+     * correspondientes a sus atributos. Si alguna nu esta completa  muestra un error en una ventana emergente
+     * @param evt 
+     */
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
         if (Ciudad.getText().isEmpty()||Clave.getText().isEmpty()||Correo.getText().isEmpty()||Cp.getText().isEmpty()||
                  Dni.getText().isEmpty() || Nombre.getText().isEmpty()||Tarjeta.getText().isEmpty()){

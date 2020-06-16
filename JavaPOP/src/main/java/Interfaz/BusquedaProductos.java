@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Interfaz;
 
 import LogicaJavaPop.DatosPrograma;
@@ -15,20 +11,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
+ * 
+ * Esta Clase permite buscar productos y solicitar la compra de estos.
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
 public class BusquedaProductos extends javax.swing.JFrame {
-    public ArrayList<JLabel> fotos=new ArrayList<JLabel>();
-    public ArrayList<JLabel> titulos=new ArrayList<JLabel>();
-   
+    public ArrayList<JLabel> fotos=new ArrayList<JLabel>();//Arraylist con todos los JLabels donde irán las fotos
+    public ArrayList<JLabel> titulos=new ArrayList<JLabel>();//Arraylist con todos los JLabels donde irán los titulos
     public ArrayList<Producto> productosDisponibles=new ArrayList<Producto>();
-    
     public int numeroVentana=0;
   
     
     
- 
+    /**
+     * Creates an instance o BusquedaProductos
+     */
     public BusquedaProductos() {
         this.numeroVentana=0;
         initComponents();
@@ -39,15 +39,23 @@ public class BusquedaProductos extends javax.swing.JFrame {
         anterior.setVisible(false);
         
     }
-    
+    /**
+     * Muestra los 10 primeros productos como máximo de un arraylist de productos 
+     * el cual debe ser introducido en el metodo.
+     * @param productos arraylist de objetos Producto
+     */
     public void mostrarProductosDisponibles(ArrayList<Producto> productos){
-        int i=0;    
+        int i=0;   
+        /*
+        Borramos todos los JLabels
+        */
         for(JLabel foto:fotos){
             foto.setVisible(false);
         }
-        for(JLabel titulo:titulos){
-            titulo.setVisible(false);
-        }
+        titulosFalse();
+        /*
+        Mostramos los productos 
+        */
         if(productos.size()!=0){
         while(i<10 && i<productos.size()){
           
@@ -69,18 +77,22 @@ public class BusquedaProductos extends javax.swing.JFrame {
             for(JLabel foto:fotos){
                 foto.setVisible(false);
         }
-            for(JLabel titulo:titulos){
-                titulo.setVisible(false);
-        }  
+           titulosFalse(); 
         }
         }
-    
+    /*
+    Invisibiliza todos los titulos
+    */
     public void titulosFalse(){
-        int i=0;
+        
         for(JLabel titulo:titulos){
             titulo.setVisible(false);
         }
     }
+    /*
+    Rellena los arraylist de fotos y titulos con todos los 
+    jLabels correspondientes
+    */
     public void llenarArraylists(){
         for(int i=0;i<5;i++){
             fotos.add((JLabel)panelProductos.getComponent(i));
@@ -211,9 +223,9 @@ public class BusquedaProductos extends javax.swing.JFrame {
         );
 
         tituloBusqueda.setText("Titulo (opcional)");
-        tituloBusqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tituloBusquedaActionPerformed(evt);
+        tituloBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tituloBusquedaMouseClicked(evt);
             }
         });
 
@@ -527,10 +539,6 @@ public class BusquedaProductos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void tituloBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tituloBusquedaActionPerformed
-       
-    }//GEN-LAST:event_tituloBusquedaActionPerformed
-
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         
         String titulo=tituloBusqueda.getText();
@@ -696,7 +704,10 @@ public class BusquedaProductos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jLabel20MouseClicked
-
+    /*
+    A continuacion eventos que cambian el color de los titulos de los productos
+    cuando el ratón pasa por encima de estos
+    */
     private void jLabel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseEntered
         jLabel11.setForeground(Color.blue);
     }//GEN-LAST:event_jLabel11MouseEntered
@@ -776,18 +787,28 @@ public class BusquedaProductos extends javax.swing.JFrame {
     private void jLabel20MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseExited
          jLabel20.setForeground(Color.black);
     }//GEN-LAST:event_jLabel20MouseExited
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
        DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosing
+    /*
+    Borra el texto de la casilla de busqueda al hacer click
+    */
+    private void tituloBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tituloBusquedaMouseClicked
+        tituloBusqueda.setText("");
+    }//GEN-LAST:event_tituloBusquedaMouseClicked
       
  
     public static void main(String args[]) {

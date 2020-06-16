@@ -12,8 +12,13 @@ import javax.swing.ImageIcon;
 import javax.swing.ListModel;
 import java.time.format.DateTimeFormatter;
 /**
+ * 
+ * Esta Clase permite ver todas las ventas realizadas en la aplicación
+ * desde el menu de administrador
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author Revij
  */
 public class VentasAdmin extends javax.swing.JFrame {
 
@@ -25,7 +30,9 @@ public class VentasAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         mostrarVentas();
     }
-    
+    /*
+    Muestra todas las ventas en una lista
+    */
     public void mostrarVentas(){
         DefaultListModel<String> ventas = new DefaultListModel();
         ArrayList<Venta> ventasGlobales = DatosPrograma.ventas;
@@ -210,7 +217,11 @@ public class VentasAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cuando un elemento de la lista es pulsado, sus atributos
+     * son representados en sus respectivos jLabels para identificarlo.
+     * @param evt 
+     */
     private void ListaVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaVentasMouseClicked
         Venta titulo= DatosPrograma.ventas.get(ListaVentas.getSelectedIndex());
         ProductoSeleccionado.setText(titulo.getTitulo());
@@ -223,7 +234,9 @@ public class VentasAdmin extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_ListaVentasMouseClicked
-
+    /*
+    Instancia y muestra un objeto de la clase Administrador
+    */
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         Administrador opciones=new Administrador();
         this.dispose();

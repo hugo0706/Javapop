@@ -15,8 +15,13 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.ListModel;
 /**
+ * 
+ * Esta Clase permite eliminar cualquier producto de la aplicacion desde el menu de
+ * administrador
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author Revij
  */
 public class EliminarProductosAdmin extends javax.swing.JFrame {
 
@@ -28,7 +33,9 @@ public class EliminarProductosAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         mostrarProductos();
     }
-
+    /**
+     * Muestra todos los productos de la aplicacion en una lista
+     */
     public void mostrarProductos(){
         DefaultListModel<String> productos =new DefaultListModel();
         ArrayList<Producto> productosGlobales = DatosPrograma.productos;
@@ -177,7 +184,11 @@ public class EliminarProductosAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cuando un elemento de la lista es pulsado, este se resalta y su titulo e imagen
+     * son representados en sus respectivos jLabels para identificarlo.
+     * @param evt 
+     */
     private void ListaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaProductosMouseClicked
         if(!DatosPrograma.productos.isEmpty()){
             String titulo= DatosPrograma.productos.get(ListaProductos.getSelectedIndex()).getTitulo();
@@ -187,7 +198,10 @@ public class EliminarProductosAdmin extends javax.swing.JFrame {
             this.Preview.setIcon(new ImageIcon(resizedImage));
         }
     }//GEN-LAST:event_ListaProductosMouseClicked
-
+    /**
+     * Cuando el boton es presionado se elimina el producto de la lista general de productos y de la lista del cliente dueño
+     * @param evt 
+     */
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         try{
             Administrador opciones=new Administrador();
@@ -227,9 +241,6 @@ public class EliminarProductosAdmin extends javax.swing.JFrame {
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

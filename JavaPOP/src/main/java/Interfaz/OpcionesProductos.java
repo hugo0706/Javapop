@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Interfaz;
 
+package Interfaz;
 /**
+ * 
+ * Esta Clase muestra las opciones de productos, subir, eliminar
+ * y hacer urgente.
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
 public class OpcionesProductos extends javax.swing.JFrame {
 
@@ -125,26 +125,34 @@ public class OpcionesProductos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+ * Permite volver a la ventana anterior
+ * */
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         OpcionesUsuario opciones=new OpcionesUsuario();
         this.dispose();
         opciones.setVisible(true);
 
     }//GEN-LAST:event_VolverActionPerformed
-
+    /*
+    Instancia y muestra un objeto de la clase CrearProducto
+    */
     private void SubirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubirProductoActionPerformed
         CrearProducto nuevoProducto=new CrearProducto();
         this.dispose();
         nuevoProducto.setVisible(true);
     }//GEN-LAST:event_SubirProductoActionPerformed
-
+    /*
+    Instancia y muestra un objeto de la clase EliminarProducto
+    */
     private void EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoActionPerformed
         EliminarProducto eliminar=new EliminarProducto();
         this.dispose();
         eliminar.setVisible(true);
     }//GEN-LAST:event_EliminarProductoActionPerformed
-
+    /*
+    Instancia y muestra un objeto de la clase HacerUrgente
+    */
     private void UrgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UrgenteActionPerformed
         HacerUrgente urgente=new HacerUrgente();
         this.dispose();
@@ -152,9 +160,6 @@ public class OpcionesProductos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_UrgenteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

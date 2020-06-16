@@ -32,9 +32,6 @@ public class LoginRegister extends javax.swing.JFrame {
     }
     
 
-    
-
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -245,20 +242,28 @@ public class LoginRegister extends javax.swing.JFrame {
        }catch(NullPointerException e){}
         
     }//GEN-LAST:event_LoginActionPerformed
-
+    /*
+    Elimina el texto de la casilla contraseña al hacer click en ella
+    */
     private void ContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContraseñaMouseClicked
         Contraseña.setText("");
     }//GEN-LAST:event_ContraseñaMouseClicked
-
+    /*
+    Elimina el texto de la casilla correo al hacer click en ella
+    */
     private void CorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CorreoMouseClicked
         Correo.setText("");    }//GEN-LAST:event_CorreoMouseClicked
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);
         DatosPrograma.actualizarVentas(DatosPrograma.ventas);
     }//GEN-LAST:event_formWindowClosed
-
+    /*
+    actualiza ficheros al cerrar ventana
+    */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         DatosPrograma.actualizarClientes(DatosPrograma.clientes);
         DatosPrograma.actualizarProductos(DatosPrograma.productos);

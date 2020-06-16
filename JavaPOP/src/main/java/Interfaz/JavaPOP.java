@@ -60,6 +60,9 @@ public class JavaPOP {
      
 
     public static void main(String args[]) {
+        /* 
+        Carga de ficheros
+        */
         DatosPrograma.clientes=cargarClientes();
         DatosPrograma.productos=cargarProductos();
         DatosPrograma.ventas=cargarVentas();
@@ -82,7 +85,7 @@ public class JavaPOP {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Creacion de login */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginRegister().setVisible(true);

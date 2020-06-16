@@ -35,7 +35,7 @@ public class Notificaciones extends javax.swing.JFrame {
         notificaciones=false;
         
         for(Producto p:productosCliente){
-            System.out.println(p.getTitulo()+p.isVenta());
+          
             if(p.isVenta()) {
                 notificaciones=true;
                 ventas.addElement(p.getTitulo()+" Precio: "+p.getPrecio());
@@ -107,11 +107,6 @@ public class Notificaciones extends javax.swing.JFrame {
         OPCIONES3.setText("SOLICITUDES DE COMPRA");
 
         VentaSeleccionada.setEditable(false);
-        VentaSeleccionada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VentaSeleccionadaActionPerformed(evt);
-            }
-        });
 
         Volver.setText("Volver");
         Volver.addActionListener(new java.awt.event.ActionListener() {
@@ -214,10 +209,6 @@ public class Notificaciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ListaVentasMouseClicked
 
-    private void VentaSeleccionadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentaSeleccionadaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VentaSeleccionadaActionPerformed
-
     private void VenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderActionPerformed
         try{  
             OpcionesUsuario opciones= new OpcionesUsuario();
@@ -226,19 +217,16 @@ public class Notificaciones extends javax.swing.JFrame {
             String titulo= VentaSeleccionada.getText();
             for(Producto p:LoginRegister.cliente.getProductosCliente()){
                 if(p.getTitulo().equals(titulo)){
-
+                  
                     LoginRegister.cliente.retirarProducto(p);
-
                     Venta v =new Venta(p.getfechaPublicacion(),p.getCategoria(),p.getEstado(),p.getDescripcion(),p.getTitulo(),
                     p.getPrecio(),p.getCp(),LocalDateTime.now(),LoginRegister.cliente,p.getComprador());
+
                     DatosPrograma.ventas.add(v);
-                    System.out.println(DatosPrograma.ventas);
-                    
+   
                 }
             }
-
-
-            mostrarVentas();
+            
         }catch(ConcurrentModificationException e){}
     }//GEN-LAST:event_VenderActionPerformed
 

@@ -10,80 +10,30 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
-
 /**
+ * 
+ * Esta Clase permite loguearse en la aplicacion con una cuenta
+ * guardando en su atributo cliente el usuario logueado.
+ * También permite acceder a una ventana de registro.
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
 
 
 public class LoginRegister extends javax.swing.JFrame {
     public static Cliente cliente;
-       
-    /**
-     * Creates new form LoginRegister
-     */
-        
-     /** 
-      * FUNCIONES DE LA CLASE LOGINREGISTER
-      */   
-    /**
-     * Compara usuarios, comprueba si el usuario y contraseña escritos por cliente son correctos
-     * @param correo String introducido por usuario
-     * @param lista ArrayList de objetos cliente
-     * @param contraseña String introducido por usuario
-     * @return true/false
-     */
     
-    public boolean comparaUsuario(String correo, ArrayList<Cliente> lista, String contraseña){
-        boolean dentro = false;
-         for (Cliente k: lista){
-            String correoComparado = k.getCorreo();
-            dentro = correo.equals(correoComparado);
-            if (dentro){
-                if (!k.getClave().equals(contraseña)){
-                    dentro = false;
-                }
-                
-                
-                break;
-            }
-        }
-        if (dentro == false && !correo.equals("admin@javapop.com")){
-            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrecta");
-
-        }
-        return dentro;
-    }        
-        
-    /**
-     * Obtiene el cliente al que pertenece dicho correo
-     * @param correo String introducido por usuario
-     * @param lista	ArrayList de objetos cliente
-     * @return	Objeto CLiente
-     */
-    public static Cliente checkCliente(String correo, ArrayList<Cliente> lista){
-        boolean coincide = false;
-        Cliente elem = new Cliente();
-        for (Cliente k: lista){
-            String correoComparado = k.getCorreo();
-            coincide = correo.equals(correoComparado);
-            if (coincide){
-                elem = k;
-                return elem;
-            }
-            
-        }
-        return elem;
-        
-    }
-   
-
     public LoginRegister() {
         initComponents();
         setLocationRelativeTo(null);
         Error.setVisible(false);
     }
+    
+
+    
+
 
 
     @SuppressWarnings("unchecked")
@@ -215,13 +165,67 @@ public class LoginRegister extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+            /**
+        * Compara usuarios, comprueba si el usuario y contraseña escritos por cliente son correctos
+        * @param correo String introducido por usuario
+        * @param lista ArrayList de objetos cliente
+        * @param contraseña String introducido por usuario
+        * @return true/false
+        */
+        public boolean comparaUsuario(String correo, ArrayList<Cliente> lista, String contraseña){
+        boolean dentro = false;
+         for (Cliente k: lista){
+            String correoComparado = k.getCorreo();
+            dentro = correo.equals(correoComparado);
+            if (dentro){
+                if (!k.getClave().equals(contraseña)){
+                    dentro = false;
+                }
+                
+                
+                break;
+            }
+        }
+        if (dentro == false && !correo.equals("admin@javapop.com")){
+            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrecta");
 
+        }
+        return dentro;
+    }        
+        
+    /**
+     * Obtiene el cliente al que pertenece dicho correo
+     * @param correo String introducido por usuario
+     * @param lista	ArrayList de objetos cliente
+     * @return	Objeto CLiente
+     */
+    public static Cliente checkCliente(String correo, ArrayList<Cliente> lista){
+        boolean coincide = false;
+        Cliente elem = new Cliente();
+        for (Cliente k: lista){
+            String correoComparado = k.getCorreo();
+            coincide = correo.equals(correoComparado);
+            if (coincide){
+                elem = k;
+                return elem;
+            }
+            
+        }
+        return elem;
+        
+    }
+      /**
+     * Instancia un objeto de clase Registro y lo muestra al presionar
+     * el boton de register.
+     */
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
         Registro registro =new Registro();
         this.dispose();
         registro.setVisible(true);
     }//GEN-LAST:event_RegisterActionPerformed
-
+      /**
+     * Cuando el boton de login es presionado 
+     */
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
        try{ 
         String usuario= Correo.getText();

@@ -215,7 +215,7 @@ public class HacerProfesional extends javax.swing.JFrame {
                 faltanDatos.setVisible(true);
         } else {
             LoginRegister.cliente=LoginRegister.cliente.hacerProfesional(apertura.getText(), cierre.getText(), telefono.getText(), web.getText(), descripcion.getText());
-        System.out.println(LoginRegister.cliente);
+        
         OpcionesUsuario opciones=new OpcionesUsuario();
         this.dispose();
         opciones.setVisible(true);

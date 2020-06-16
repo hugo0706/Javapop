@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaJavaPop;
 
 import java.io.*;
@@ -10,8 +6,8 @@ import java.util.*;
 import javax.swing.JFrame;
 /**
  * Esta clase pretende albergar los metodos que tienen relacion con la
- * transferencia y lectura de datos, arrays generales del programa y creacion
- * de clientes.
+ * transferencia y lectura de datos, y datos de arrays generales del programa
+ * asi como estos arraylists.
  * 
  * @author Javier Carrizosa Bermejo
  * @author Hugo García Calvo
@@ -21,10 +17,7 @@ public  class DatosPrograma implements Serializable {
 	public static ArrayList<Cliente>clientes=new ArrayList<Cliente>();
 	public static ArrayList<Producto>productos=new ArrayList<Producto>();
 	public static ArrayList<Venta>ventas=new ArrayList<Venta>();
-        
-			
-	
-	
+
 	/**
 	 * Este metodo retira un producto del arraylist general de productos
 	 * @param producto objeto de clase Producto
@@ -33,7 +26,7 @@ public  class DatosPrograma implements Serializable {
 		for(Producto p:productos){
                     if(p.getTitulo().equals(producto.getTitulo()) && p.getDueño().getDni().equals(producto.getDueño().getDni())){
                         productos.remove(p);
-                        System.out.println("retirar p");
+                       
                         break;
                     }
                 }
@@ -75,7 +68,7 @@ public  class DatosPrograma implements Serializable {
 	/**
 	 * Este método permite actualizar los datos del fichero de clientes con 
 	 * el arraylist general de los clientes.
-	 * 
+	 * @param clientes Arraylist de objetos cliente
 	 */
 	public static void actualizarClientes(ArrayList<Cliente> clientes) {
 		try {
@@ -85,7 +78,7 @@ public  class DatosPrograma implements Serializable {
 			ficheroClientes.close();
 			fos.close();
 		}catch(Exception e){
-			System.out.println("Error al transferir a fichero clientes"+e.toString());
+			System.out.println("Error al transferir a fichero clientes");
 			
 			
 		}
@@ -93,13 +86,12 @@ public  class DatosPrograma implements Serializable {
 	/**
 	 * Este método permite actualizar los datos del fichero de productos con 
 	 * el arraylist general de los productos.
-	 * 
+	 * @param productos Arraylist de objetos productos
 	 */
 	public static void actualizarProductos(ArrayList<Producto>productos) {
 		try {
 			ObjectOutputStream ficheroProductos=new ObjectOutputStream(new FileOutputStream("productos.txt"));
-	
-				ficheroProductos.writeObject(productos);
+                        ficheroProductos.writeObject(productos);
 			
 			ficheroProductos.close();
 		}catch(Exception e){
@@ -112,7 +104,7 @@ public  class DatosPrograma implements Serializable {
 	/**
 	 * Este método permite actualizar los datos del fichero de ventas con 
 	 * el arraylist general de las ventas.
-	 * 
+	 * @param ventas Arraylist con objetos venta
 	 */
 	public static void actualizarVentas(ArrayList<Venta>ventas) {
 		try {
@@ -149,7 +141,7 @@ public  class DatosPrograma implements Serializable {
 	/**
 	 * Este método permite leer los datos del fichero de productos y los retorna 
 	 * en forma de arrayList.
-	 * 
+	 * @return ArrayList<Producto>
 	 */
 	public static ArrayList<Producto> leerFicheroP() {
 		ArrayList<Producto> productosGuardados=new ArrayList<Producto>();
@@ -180,12 +172,15 @@ public  class DatosPrograma implements Serializable {
 		}
 		return ventasGuardadas;
 	}
+        /**
+	 * Este método permite eliminar un producto de la lista general y particular de un cliente
+         * desde una cuenta de administrador
+	 * 
+	 */
         public static void eliminarProductoAdmin(Producto opcion){
          for(Cliente c: DatosPrograma.clientes) {
              if(c.getDni().equals(opcion.getDueño().getDni())) {
-                 
                  for(Producto pCliente: c.getProductosCliente()) {
-                     
                      if(pCliente.getTitulo().equals(opcion.getTitulo())) {
                          
                             retirarProducto(opcion);
@@ -197,6 +192,11 @@ public  class DatosPrograma implements Serializable {
              }
          }
         }
+        /**
+	 * Este método permite eliminar un cliente de la lista general 
+         * desde una cuenta de administrador
+	 * 
+	 */
         public static void eliminarClientesAdmin(Cliente c){
             for(int i=0;i< productos.size();i++) {
                 Producto p= productos.get(i);

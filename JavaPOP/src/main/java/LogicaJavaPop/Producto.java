@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaJavaPop;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.LocalDate;  
-        
+    /**
+    * Esta Clase pretende construir un producto y recoge los metodos usados por este.
+    * 
+    * @author Javier Carrizosa Bermejo
+    * @author Hugo García Calvo
+    *
+    */ 
 public class Producto implements Serializable {
     private LocalDate fechaPublicacion;    
     private String categoria;     
@@ -22,7 +24,7 @@ public class Producto implements Serializable {
     private String cp;
     private LocalDate fechaUrgente;
     private String imagen;
-    public Cliente comprador=new Cliente();
+    public Cliente comprador;
     
    
     

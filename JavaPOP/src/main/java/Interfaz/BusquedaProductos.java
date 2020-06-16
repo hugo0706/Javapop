@@ -570,16 +570,16 @@ public class BusquedaProductos extends javax.swing.JFrame {
         siguiente.setVisible(true);
         numeroVentana-=1;
        
-        System.out.println("hola");
+        
         if(!(productosDisponibles.size()-numeroVentana*10<11)){
-            System.out.println("hola");
+       
             ArrayList<Producto>productosPagina=new ArrayList<Producto>(productosDisponibles.subList(numeroVentana*10, (numeroVentana*10)+10));
-            System.out.println("hola");
+         
             
             mostrarProductosDisponibles(productosPagina);
-            System.out.println("hola");
+  
         }else{
-            System.out.println("hello");
+          
             ArrayList<Producto>productosPagina=new ArrayList<Producto>(productosDisponibles.subList(numeroVentana*10, productosDisponibles.size()-1));
             productosPagina.add(productosDisponibles.get(productosDisponibles.size()-1));
             mostrarProductosDisponibles(productosPagina);

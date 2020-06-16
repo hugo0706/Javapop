@@ -8,10 +8,14 @@ import LogicaJavaPop.Venta;
 import java.util.ArrayList;
 
 /**
+ * 
+ * Esta clase carga los ficheros de datos del programa e instancia
+ * un objeto de clase LoginRegister y lo muestra, dando comienzo al programa.
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
-
 
 
 public class JavaPOP {
@@ -59,7 +63,7 @@ public class JavaPOP {
         DatosPrograma.clientes=cargarClientes();
         DatosPrograma.productos=cargarProductos();
         DatosPrograma.ventas=cargarVentas();
-        System.out.println(DatosPrograma.clientes);
+        System.out.print(DatosPrograma.ventas);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

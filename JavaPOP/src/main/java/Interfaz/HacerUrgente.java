@@ -211,10 +211,9 @@ public class HacerUrgente extends javax.swing.JFrame {
                     if(!p.isUrgente()){
                         this.dispose();
                         opciones.setVisible(true);
-                       
-                        System.out.println(LoginRegister.cliente.getProductosCliente());
+
                         LoginRegister.cliente.hacerUrgente(titulo);
-                        System.out.println(LoginRegister.cliente.getProductosCliente());
+                       
                     }else{errorUrgente.setVisible(true);}
                 }
             }

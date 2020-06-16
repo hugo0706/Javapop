@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaJavaPop;
 import java.io.Serializable;
 /**
+ * 
+ * Esta Clase pretende construir un Profesional 
+ * 
+ * @author Javier Carrizosa Bermejo
+ * @author Hugo García Calvo
  *
- * @author hugog
  */
 public class Profesional extends Cliente implements Serializable {
     private String descripcion;

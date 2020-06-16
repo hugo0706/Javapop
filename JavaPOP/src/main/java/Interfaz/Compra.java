@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Interfaz;
 
 import LogicaJavaPop.Cliente;
@@ -188,7 +184,7 @@ public class Compra extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JOptionPane.showMessageDialog(this, "Ha solicitado la compra\n Deberá ser aceptada por el vendedor");
-        
+            
             BusquedaProductos opciones=new BusquedaProductos();
             this.dispose();
             opciones.setVisible(true);
@@ -202,7 +198,7 @@ public class Compra extends javax.swing.JFrame {
                    
                         if(p.getTitulo().equals(titulo)){
                        
-                            
+                            p.setComprador(LoginRegister.cliente);
                             p.setVenta(true);
                             
                         }

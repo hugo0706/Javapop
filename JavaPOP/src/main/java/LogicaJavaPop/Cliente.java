@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LogicaJavaPop;
 
 import java.io.Serializable;
@@ -27,9 +23,6 @@ public class Cliente implements Serializable {
 	public String ciudad;
 	public String credito;
 	private ArrayList<Producto> productosCliente;
-	
-	
-        
 	
 	/**
 	 * Este método añade un objeto de clase Producto a un array general con todos
@@ -70,117 +63,43 @@ public class Cliente implements Serializable {
 		/**
 		 * Si el producto se encuentra en la lista personal del cliente, se retira.
 		 */
+                
 		for(Producto p:this.productosCliente){
                   if(p.getTitulo().equals(producto.getTitulo())){
+                 
 			this.productosCliente.remove(producto);
-                        
+                     
 			/**
 			 * Retira producto de la lista general de productos
 			 */
 			DatosPrograma.retirarProducto(producto);
-                        
+                    
+                        break;
 		}
 	}
         }
 	/**
-	 * Este metodo muestra todos los productos de un cliente y, una vez seleccionado
-	 * uno, cambia su estado a urgente, mostrando la transaccion realizada y la 
-	 * tarjeta de credito usada.
+	 * Este método recibe un String con el nombre de un producto y cambia el boleeano
+         * urgente del producto a estado true, fijando tambien la fecha de paso a urgente
+         * debido a que tras 7 dias, urgente pasará a ser false
+         * @param String nombre de producto
 	 */
 	public void hacerUrgente(String nombre) {
-        
-        
-        for(Producto i:productosCliente) {
-        
-            if(nombre.equals(i.getTitulo()) && !i.isUrgente()) {
-               
-                i.estableceFechaUrgente();
-                i.setUrgente(true);
-                            for (Producto d: DatosPrograma.productos){
-                                if (d.getTitulo().equals(i.getTitulo()) && d.getDueño().getDni().equals(i.getDueño().dni)){
-                                    
-                                    d.setUrgente(true);
-                                    d.estableceFechaUrgente();
-                                    
-                                    System.out.println("ha convertido "+i.getTitulo()+" en urgente con tarjeta "+this.credito);
-                                    
+            for(Producto i:productosCliente) {
+                if(nombre.equals(i.getTitulo()) && !i.isUrgente()) {
+
+                    i.estableceFechaUrgente();
+                    i.setUrgente(true);
+                                for (Producto d: DatosPrograma.productos){
+                                    if (d.getTitulo().equals(i.getTitulo()) && d.getDueño().getDni().equals(i.getDueño().dni)){
+                                        d.setUrgente(true);
+                                        d.estableceFechaUrgente();
+                                    }
                                 }
-
-                            }
-            }else if(i.isUrgente()) {
-		System.out.println("Ya es urgente");
-			}
-		}
+                }
+            }
 	}
-	
-	/**
-	 * Este metodo comprueba si alguien ha solicitado la compra de uno de los 
-	 * productos propios del usuario con la sesion abierta, en caso de haber 
-	 * solicitudes, muestra la notificacion y se decide si aceptar o no la compra.
-	 * Si esta es aceptada se guardan los datos de la venta en un array con las 
-	 * ventas totales.
-	 * Si esta no es aceptada el producto deja de estar en estado de compra.
-	 */
-	public void comprobarCompra() {
-		Scanner entrada=new Scanner(System.in);
-		System.out.println("------------NUEVAS NOTIFICACIONES------------");
-
-		for(int i=0;i<productosCliente.size();i++) {
-			Producto p=this.productosCliente.get(i);
-			if(p.isVenta()) {
-				boolean terminado =false;
-				
-				while(!terminado) {	
-					
-					System.out.println("¿Quiere aceptar la venta del producto " +p.getTitulo()+"?"+" Si/No");
-					String decision= entrada.nextLine();
-				
-					if(decision.toUpperCase().equals("SI")){
-						i=i-1;
-						System.out.println("Ha vendido el producto");
-						Venta v =new Venta(p.getfechaPublicacion(),p.getCategoria(),p.getEstado(),p.getDescripcion(),p.getTitulo(),
-								p.getPrecio(),p.getCp(),LocalDateTime.now(),this,p.getComprador());
-						
-						DatosPrograma.ventas.add(v);
-						for(Producto pCliente:this.productosCliente) {
-							if(p.getTitulo().equals(pCliente.getTitulo())) {
-								this.productosCliente.remove(pCliente);		
-								
-								break;
-							}
-						}
-						
-						for(Producto pGeneral: DatosPrograma.productos) {
-							if(pGeneral.getTitulo().equals(p.getTitulo())) {
-								if(pGeneral.getDueño().dni.equals(this.dni)) {
-									DatosPrograma.productos.remove(pGeneral);
-									
-									break;
-								}
-								
-							}
-						}
-						
-						terminado=true;
-					/**
-					 * Si no acepta la compra, el producto deja de estar pendiente de vender
-					 */
-					}else if(decision.toUpperCase().equals("NO")) { 
-						System.out.println("No acepta la compra");
-						p.setVenta(false);
-						terminado=true;
-					}
-					else{
-						System.out.println("Introduce SI/NO");
-					}
-		}
-				
-		}
-		
-	}
-		System.out.println("------------NO HAY NOTIFICACIONES------------");
-	}
-	/**
+    /**
      * 
      * Método que ordena una lista de productos comparando producto a producto con el código postal del cliente
      * @param codigo String del codigo postal, debe contener como minimos 3 caracteres
@@ -307,8 +226,16 @@ public class Cliente implements Serializable {
 
     }
 	/**
-	 * Este metodo permite añadir los atributos de profesional a un cliente
-	 * mostrando los datos de la transaccion.
+	 * Este metodo crea un Profesional a partir de los datos de un cliente anterior el cual
+         * es eliminado, y parametros que deben ser introducidos. Este Profesional se añade al array
+         * general de clientes.
+         * 
+         * @param apertura 
+         * @param cierre
+         * @param descripcion
+         * @param telefono
+         * @param web
+	 * 
 	 */
 	
 	public Profesional hacerProfesional(String apertura, String cierre, String descripcion, String telefono, String web) {
@@ -316,7 +243,7 @@ public class Cliente implements Serializable {
                 Profesional profesional =new Profesional(this.dni,this.nombre,this.correo,this.clave,this.cp,this.ciudad,this.credito, descripcion, apertura, cierre, telefono, web);
                 DatosPrograma.retirarCliente(this);
                 DatosPrograma.añadirCliente(profesional);
-                System.out.println("Ahora es profesional. Transaccion de 30€. Tarjeta:"+this.credito);
+                
                 return profesional;
     }
 	
